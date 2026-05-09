@@ -6,9 +6,9 @@ import morgan from 'morgan';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { dirname } from 'node:path';
-import './models/index.js';
+//import './models/index.js';
 
-import Routes from './routes/index.js';
+//import Routes from './routes/index.js';
 import { sequelize } from './config/database.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -33,10 +33,11 @@ app.use(morgan('combined', { stream: logStream }));
 app.use(express.json({ limit: '50mb'}));
 app.use(express.urlencoded({ extended: true, limit: '50mb'}));
 
-Routes(app);
+/*Routes(app);
 app.use((req, res) => {
   res.status(404).send('404 - página não encontrada');
 })
+*/
 
 sequelize.authenticate()
   .then(() => {
