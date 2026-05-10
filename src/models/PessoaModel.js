@@ -34,6 +34,25 @@ const Pessoa = sequelize.define(
             type: DataTypes.INTEGER,
             defaultValue: 1,
             field: 'tipo_pessoa',
+        },
+        passwordHash: {
+            type: DataTypes.STRING,
+            field: 'password_hash',
+            allowNull: false,   
+        },
+        resetPasswordToken: {
+            type: DataTypes.STRING(255),
+            field: 'reset_password_token',
+            allowNull: true,
+        },
+        resetPasswordExpires: {
+            type: DataTypes.DATE,
+            field: 'reset_password_expires',
+            allowNull: true,
+        },
+        token: {
+            type: DataTypes.STRING(255),
+            allowNull: true
         }
     },
     {
@@ -45,5 +64,3 @@ const Pessoa = sequelize.define(
 );
 
 export default Pessoa;
-
-
