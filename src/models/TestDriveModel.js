@@ -1,7 +1,7 @@
 import { DataTypes } from "sequelize";
 import { sequelize } from "../config/database.js";
-import Pessoa from "./Pessoa.js"; 
-import Automovel from "./Automevel.js";
+import Pessoa from "./PessoaModel.js";
+import Automovel from "./AutomovelModel.js";
 
 const TestDrive = sequelize.define(
     'TestDrives', {
@@ -38,15 +38,13 @@ const TestDrive = sequelize.define(
     }
 );
 
-//Aqui mostra que Test Drive peartence a uma Pessoa e a um Automóvel
+// Aqui mostra que Test Drive pertence a uma Pessoa e a um Automóvel.
+TestDrive.belongsTo(Pessoa, { foreignKey: 'pessoaId' });
+TestDrive.belongsTo(Automovel, { foreignKey: 'automovelId' });
 
-TesteDrive.belongsTo(Pessoa, { foreignKey: 'pessoa_id' });
-TesteDrive.belongsTo(Automovel, { foreignKey: 'automovel_id' });
-
-//Aqui quer dizer que uma pessoa pode ter vários test drives
-
-Pessoa.hasMany(TestDrive, { foreignKey: 'pessoa_id' });
-Automovel.hasMany(TestDrive, { foreignKey: 'automovel_id' });
+// Aqui quer dizer que uma pessoa pode ter vários test drives.
+Pessoa.hasMany(TestDrive, { foreignKey: 'pessoaId' });
+Automovel.hasMany(TestDrive, { foreignKey: 'automovelId' });
 
 
 
