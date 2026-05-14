@@ -1,0 +1,23 @@
+# Node
+node_modules/
+**/node_modules/
+npm-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Env
+.env
+.env.local
+.env.*.local
+
+# Logs
+*.log
+access.log
+
+# Next.js
+.next/
+out/
+
+# Editor
+.vscode/
+.DS_Store
