@@ -1,3 +1,4 @@
+import NextLink from 'next/link';
 import { Flex, Box, Text, Heading, Button } from '@chakra-ui/react';
 
 export function Banner() {
@@ -17,7 +18,7 @@ export function Banner() {
       color="white"
       textAlign="center"
     >
-      {/* Overlay Escuro / Gradiente para garantir leitura do texto */}
+  
       <Box
         position="absolute"
         top={0}
@@ -63,6 +64,8 @@ export function Banner() {
           Não é apenas um carro. É o próximo capítulo da sua história.
         </Text>
         <Button
+          as={NextLink}
+          href="/register"
           bg="#235a40"
           color="white"
           borderRadius="none"
@@ -81,7 +84,7 @@ export function Banner() {
             boxShadow: '0 10px 20px rgba(0,0,0,0.2)'
           }}
         >
-          EXPLORE O CATÁLOGO
+          CRIE SUA CONTA
         </Button>
       </Box>
     </Flex>

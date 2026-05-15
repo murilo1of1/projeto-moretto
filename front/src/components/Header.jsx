@@ -1,3 +1,4 @@
+import NextLink from 'next/link';
 import { Flex, Text, HStack, Button, Link } from '@chakra-ui/react';
 
 export function Header() {
@@ -61,6 +62,8 @@ export function Header() {
       </HStack>
 
       <Button
+        as={NextLink}
+        href="/login"
         bg="#112a21"
         color="white"
         borderRadius="none"
@@ -77,7 +80,7 @@ export function Header() {
           boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
         }}
       >
-        ATENDIMENTO VIP
+        ENTRE
       </Button>
     </Flex>
   );

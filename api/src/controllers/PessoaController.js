@@ -41,7 +41,6 @@ const create = async (body) => {
     try {
         const {
             nome,
-            cpfCnpj,
             email,
             telefone,
             tipoPessoa,
@@ -52,7 +51,6 @@ const create = async (body) => {
 
         const response = await Pessoa.create({
             nome,
-            cpfCnpj,
             email,
             telefone,
             tipoPessoa,
@@ -190,5 +188,3 @@ export default {
     destroy,
     login
 };
-
-
