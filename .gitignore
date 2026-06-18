@@ -17,6 +17,8 @@ access.log
 # Next.js
 .next/
 out/
+# Uploads
+uploads/
 
 # Editor
 .vscode/

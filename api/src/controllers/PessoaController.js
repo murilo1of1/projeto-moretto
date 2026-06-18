@@ -43,7 +43,6 @@ const create = async (body) => {
             nome,
             email,
             telefone,
-            tipoPessoa,
             password,
         } = body;
 
@@ -53,7 +52,7 @@ const create = async (body) => {
             nome,
             email,
             telefone,
-            tipoPessoa,
+            tipoPessoa: 1,
             passwordHash
         });
 
@@ -165,7 +164,8 @@ const login = async (req, res) => {
             const token = jwt.sign({
                 idPessoa: pessoa.id,
                 nome: pessoa.nome,
-                email: pessoa.email
+                email: pessoa.email,
+                tipoPessoa: pessoa.tipoPessoa
             }, process.env.TOKEN_KEY, { expiresIn: '8h' });
             return res.status(200).send({
                 message: 'Sucesso',
@@ -182,9 +182,41 @@ const login = async (req, res) => {
     }
 };
 
+const createByAdmin = async (req, res) => {
+    try {
+        const {
+            nome,
+            email,
+            telefone,
+            tipoPessoa,
+            password,
+        } = req.body;
+
+        const passwordHash = await bcrypt.hash(password, 10);
+
+        const response = await Pessoa.create({
+            nome,
+            email,
+            telefone,
+            tipoPessoa,
+            passwordHash
+        });
+
+        return res.status(201).send({
+            message: 'Pessoa criada com sucesso!',
+            data: response
+        });
+    } catch (error) {
+        return res.status(500).send({
+            message: error.message
+        });
+    }
+};
+
 export default {
     get,
     persist,
     destroy,
-    login
+    login,
+    createByAdmin
 };
