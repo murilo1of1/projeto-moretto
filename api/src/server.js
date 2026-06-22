@@ -10,6 +10,7 @@ import "./models/index.js";
 
 import Routes from "./routes/index.js";
 import { sequelize } from "./config/database.js";
+import { seedDatabase } from "./seeders/seedDatabase.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -40,7 +41,10 @@ app.use((req, res) => {
 
 sequelize
   .authenticate()
-  .then(() => console.log("Conectado ao Banco!"))
+  .then(async () => {
+    console.log("Conectado ao Banco!");
+    await seedDatabase();
+  })
   .catch((err) => console.log("Erro no Banco: ", err));
 
 app.listen(process.env.API_PORT, (e) => {
