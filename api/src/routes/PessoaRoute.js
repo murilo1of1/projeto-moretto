@@ -9,5 +9,5 @@ export default (app) => {
     app.delete('/pessoa/:id', PessoaController.destroy);
     app.post('/login', PessoaController.login);
 
-    app.post('/admin/pessoa', auth, adminOnly, PessoaController.createByadmin);
+    app.post('/admin/pessoa', auth, adminOnly, PessoaController.createByAdmin);
 };
