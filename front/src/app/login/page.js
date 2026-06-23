@@ -19,13 +19,16 @@ export default function LoginPage() {
 
       if (response.status === 200) {
         localStorage.setItem('token', response.data.response);
+        const dadosToken = JSON.parse(atob(response.data.response.split('.')[1]));
+        const destino = dadosToken.tipoPessoa === 2 ? '/admin' : '/home';
+
         toaster.create({
           title: 'Bem-vindo de volta!',
           description: 'Login realizado com sucesso.',
           type: 'success',
           meta: { closable: true },
         });
-        setTimeout(() => router.push('/'), 1500);
+        setTimeout(() => router.push(destino), 1500);
       }
     } catch (error) {
       console.error('Erro ao fazer login:', error);

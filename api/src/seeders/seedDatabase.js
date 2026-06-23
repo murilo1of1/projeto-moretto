@@ -18,7 +18,7 @@ export const seedDatabase = async () => {
       nome: "Admin Moretto",
       email: "admin@moretto.com",
       telefone: "11999999999",
-      tipoPessoa: 0,
+      tipoPessoa: 2,
       cpfCnpj: "12345678901234",
       passwordHash: adminPasswordHash,
     });

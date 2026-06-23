@@ -1,9 +1,12 @@
 'use client';
 
-import { Box, Flex, Heading, Text } from '@chakra-ui/react';
+import NextLink from 'next/link';
+import { Box, Button, Grid, Text } from '@chakra-ui/react';
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import AdminPessoaInput from '@/components/AdminPessoaInput';
+import { AdminHeader } from '@/components/AdminHeader';
+import { FormPanel } from '@/components/FormPanel';
 import { toaster } from '@/components/ui/toaster';
 import api from '@/utils/axios';
 
@@ -21,7 +24,7 @@ export default function NovaPessoaAdminPage() {
     const dadosToken = JSON.parse(atob(token.split('.')[1]));
 
     if (dadosToken.tipoPessoa !== 2) {
-      router.push('/');
+      router.push('/home');
     }
   }, [router]);
 
@@ -42,7 +45,11 @@ export default function NovaPessoaAdminPage() {
           type: 'success',
           meta: { closable: true },
         });
+
+        return true;
       }
+
+      return false;
     } catch (error) {
       console.error('Erro ao cadastrar pessoa:', error);
       toaster.create({
@@ -51,104 +58,64 @@ export default function NovaPessoaAdminPage() {
         type: 'error',
         meta: { closable: true },
       });
+
+      return false;
     }
   };
 
   return (
-    <Flex w="100vw" minH="100vh" direction={{ base: 'column', lg: 'row' }}>
+    <>
+      <AdminHeader />
+
       <Box
-        w={{ base: '100%', lg: '63%' }}
-        minH={{ base: '40vh', lg: '100vh' }}
-        bg="#0a1f15"
-        position="relative"
-        display="flex"
-        flexDirection="column"
-        alignItems="center"
-        justifyContent="center"
-        px={14}
-        textAlign="center"
-      >
-        <Box
-          position="absolute"
-          inset={0}
-          bg="rgba(10, 31, 21, 0.82)"
-          zIndex={1}
-        />
-
-        <Box zIndex={2}>
-          <Heading
-            as="div"
-            fontFamily="var(--font-cormorant-garamond)"
-            fontSize={{ base: '5xl', lg: '7xl' }}
-            fontWeight="700"
-            color="white"
-            letterSpacing="widest"
-            lineHeight="1"
-            mb={8}
-          >
-            FLOW<br />MOTORS
-          </Heading>
-
-          <Box w="50px" h="1px" bg="rgba(255,255,255,0.4)" mx="auto" mb={8} />
-
-          <Text
-            fontFamily="var(--font-cormorant-garamond)"
-            fontStyle="italic"
-            fontSize={{ base: 'lg', lg: 'xl' }}
-            color="rgba(255,255,255,0.85)"
-            maxW="380px"
-            lineHeight="1.6"
-          >
-            "Administre os acessos da concessionária com cuidado e precisão."
-          </Text>
-        </Box>
-      </Box>
-
-      <Flex
-        w={{ base: '100%', lg: '37%' }}
-        minH={{ base: 'auto', lg: '100vh' }}
+        minH="100vh"
         bg="#f9f7f2"
-        flexDirection="column"
-        justify="space-between"
-        px={{ base: 8, lg: 10 }}
-        py={{ base: 12, lg: 16 }}
+        px={{ base: 6, lg: 14 }}
+        pt={{ base: '125px', lg: '141px' }}
+        pb={{ base: 10, lg: 14 }}
       >
-        <Text
-          fontFamily="var(--font-cormorant-garamond)"
-          fontSize="xl"
-          fontWeight="600"
-          letterSpacing="widest"
-          color="#1a1a1a"
-          mb={12}
+        <FormPanel
+          eyebrow="ADMINISTRACAO"
+          title="Nova pessoa"
+          description="Cadastre clientes e administradores autorizados para operar ou acessar a experiencia Flow Motors."
+          aside={
+            <Button
+              as={NextLink}
+              href="/admin/pessoas"
+              variant="outline"
+              borderColor="#112a21"
+              color="#112a21"
+              borderRadius="none"
+              h="46px"
+              px={7}
+              fontSize="xs"
+              fontWeight="bold"
+              letterSpacing="widest"
+              _hover={{ bg: '#112a21', color: 'white' }}
+            >
+              VER PESSOAS
+            </Button>
+          }
         >
-          FLOW MOTORS
-        </Text>
+          <Grid templateColumns={{ base: '1fr', lg: '1.1fr 0.9fr' }} gap={{ base: 8, lg: 12 }}>
+            <AdminPessoaInput onSubmit={handleCreatePessoa} />
 
-        <Box flex={1} maxW="480px">
-          <Heading
-            as="h1"
-            fontFamily="var(--font-cormorant-garamond)"
-            fontSize={{ base: '4xl', lg: '5xl' }}
-            fontWeight="500"
-            color="#1a1a1a"
-            mb={3}
-          >
-            Nova Pessoa
-          </Heading>
+            <Box borderLeft={{ base: 'none', lg: '1px solid #d6c7aa' }} pl={{ base: 0, lg: 10 }}>
+              <Text fontSize="10px" fontWeight="bold" letterSpacing="widest" color="#7a6242" mb={4}>
+                REGRAS DE ACESSO
+              </Text>
 
-          <Text
-            fontSize="sm"
-            color="gray.500"
-            fontFamily="var(--font-inter)"
-            mb={10}
-            lineHeight="tall"
-          >
-            Cadastre clientes ou administradores autorizados no sistema.
-          </Text>
+              <Text color="#4c3b29" lineHeight="1.8" mb={5}>
+                Clientes acessam catalogo, area do usuario e agendamento de test drive.
+              </Text>
 
-          <AdminPessoaInput onSubmit={handleCreatePessoa} />
-        </Box>
-      </Flex>
-    </Flex>
+              <Text color="#4c3b29" lineHeight="1.8">
+                Administradores acessam o painel de gestao, cadastros e listagens internas.
+              </Text>
+            </Box>
+          </Grid>
+        </FormPanel>
+      </Box>
+    </>
   );
 }

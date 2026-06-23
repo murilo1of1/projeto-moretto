@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import api from '@/utils/axios';
 import { toaster } from '@/components/ui/toaster';
+import { AdminHeader } from '@/components/AdminHeader';
 
 export default function NovoAutomovelPage() {
   const router = useRouter();
@@ -27,56 +28,89 @@ export default function NovoAutomovelPage() {
     const dadosToken = JSON.parse(atob(token.split('.')[1]));
 
     if (dadosToken.tipoPessoa !== 2) {
-      router.push('/');
+      router.push('/home');
     }
   }, [router]);
 
   const handleSubmit = async () => {
-    if (!placa || !marca || !modelo || !ano || !cor) {
-      toaster.create({
-        title: 'Preencha todos os campos',
-        type: 'error',
-        meta: { closable: true },
-      });
-      return;
-    }
+  const placaLimpa = placa.trim().toUpperCase();
+  const marcaLimpa = marca.trim();
+  const modeloLimpo = modelo.trim();
+  const corLimpa = cor.trim();
+  const anoNumero = Number(ano);
 
-    try {
-      setIsSubmitting(true);
+  if (!placaLimpa || !marcaLimpa || !modeloLimpo || !ano || !corLimpa) {
+    toaster.create({
+      title: 'Preencha todos os campos',
+      description: 'Placa, marca, modelo, ano e cor são obrigatórios.',
+      type: 'error',
+      meta: { closable: true },
+    });
+    return;
+  }
 
-      await api.post('/automovel', {
-        placa,
-        marca,
-        modelo,
-        ano: Number(ano),
-        cor,
-      });
+  if (placaLimpa.length !== 7) {
+    toaster.create({
+      title: 'Placa inválida',
+      description: 'Informe a placa com 7 caracteres, sem traço.',
+      type: 'error',
+      meta: { closable: true },
+    });
+    return;
+  }
 
-      toaster.create({
-        title: 'Automóvel cadastrado com sucesso!',
-        type: 'success',
-        meta: { closable: true },
-      });
+  if (!anoNumero || anoNumero < 1900 || anoNumero > new Date().getFullYear() + 1) {
+    toaster.create({
+      title: 'Ano inválido',
+      description: 'Informe um ano válido para o automóvel.',
+      type: 'error',
+      meta: { closable: true },
+    });
+    return;
+  }
 
-      setPlaca('');
-      setMarca('');
-      setModelo('');
-      setAno('');
-      setCor('');
-    } catch (error) {
-      toaster.create({
-        title: 'Erro ao cadastrar automóvel',
-        description: error.response?.data?.message || 'Tente novamente.',
-        type: 'error',
-        meta: { closable: true },
-      });
-    } finally {
-      setIsSubmitting(false);
-    }
+  try {
+    setIsSubmitting(true);
+
+    await api.post('/automoveis', {
+      placa: placaLimpa,
+      marca: marcaLimpa,
+      modelo: modeloLimpo,
+      ano: anoNumero,
+      cor: corLimpa,
+    });
+
+    toaster.create({
+      title: 'Automóvel cadastrado com sucesso!',
+      description: 'O veículo foi adicionado ao showroom.',
+      type: 'success',
+      meta: { closable: true },
+    });
+
+    setPlaca('');
+    setMarca('');
+    setModelo('');
+    setAno('');
+    setCor('');
+  } catch (error) {
+    toaster.create({
+      title: 'Erro ao cadastrar automóvel',
+      description: error.response?.data?.message || 'Tente novamente.',
+      type: 'error',
+      meta: { closable: true },
+    });
+  } finally {
+    setIsSubmitting(false);
+  }
+
+
   };
 
   return (
-    <Flex minH="100vh" bg="#f9f7f2" align="center" justify="center" px={8}>
+    <>
+      <AdminHeader />
+
+      <Flex minH="100vh" bg="#f9f7f2" align="center" justify="center" px={8} pt="85px">
       <Box w="100%" maxW="520px">
         <Heading
           as="h1"
@@ -121,6 +155,7 @@ export default function NovoAutomovelPage() {
           </Button>
         </Stack>
       </Box>
-    </Flex>
+      </Flex>
+    </>
   );
 }
