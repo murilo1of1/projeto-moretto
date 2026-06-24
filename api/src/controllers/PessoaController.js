@@ -14,14 +14,14 @@ const get = async (req, res) => {
             return res.status(200).send({
                 message: 'Dados Encontrados',
                 data: response
-            })
+            });
         }
 
-        const response = await Pessoa.findOne({
-            where: {
-                id: id
-            }
-        });
+        if (req.user.tipoPessoa !== 2 && Number(req.user.idPessoa) !== Number(id)) {
+            return res.status(403).send({ message: 'Acesso negado' });
+        }
+
+        const response = await Pessoa.findOne({ where: { id } });
 
         if (!response) {
             return res.status(404).send('Dados não encontrados');
@@ -30,10 +30,10 @@ const get = async (req, res) => {
         return res.status(200).send({
             message: 'Dados encontrados',
             data: response
-        })
+        });
 
     } catch (error) {
-        return res.status(500).send(error.message);
+        return res.status(500).send({ message: error.message });
     }
 };
 
@@ -51,38 +51,39 @@ const create = async (body) => {
 
     const passwordHash = await bcrypt.hash(password, 10);
 
-    const response = await Pessoa.create({
+    return Pessoa.create({
         nome,
         email,
         telefone,
         tipoPessoa: 1,
         passwordHash
     });
-
-    return response;
 };
 
-const update = async (body, id) => {
-    try {
-        const response = await Pessoa.findOne({
-            where: {
-                id
-            }
-        });
+const update = async (body, id, requester) => {
+    const pessoa = await Pessoa.findOne({ where: { id } });
 
-        if (!response) {
-            throw new Error('Usuário não encontrado');
-        }
-        if (body.password) {
-            delete body.password;
-        }
-        Object.keys(body).forEach((item) => response[item] = body[item]);
-        await response.save();
-        return response;
-
-    } catch (error) {
-        throw new Error(error.message);
+    if (!pessoa) {
+        throw new Error('Usuário não encontrado');
     }
+
+    const camposPermitidos = ['nome', 'email', 'telefone'];
+    if (requester?.tipoPessoa === 2) {
+        camposPermitidos.push('tipoPessoa');
+    }
+
+    camposPermitidos.forEach((campo) => {
+        if (body[campo] !== undefined) {
+            pessoa[campo] = body[campo];
+        }
+    });
+
+    if (body.password) {
+        pessoa.passwordHash = await bcrypt.hash(body.password, 10);
+    }
+
+    await pessoa.save();
+    return pessoa;
 };
 
 const persist = async (req, res) => {
@@ -97,8 +98,12 @@ const persist = async (req, res) => {
             });
         }
 
-        const response = await update(req.body, id);
-        return res.status(201).send({
+        if (req.user.tipoPessoa !== 2 && Number(req.user.idPessoa) !== Number(id)) {
+            return res.status(403).send({ message: 'Acesso negado' });
+        }
+
+        const response = await update(req.body, id, req.user);
+        return res.status(200).send({
             message: 'atualizado com sucesso!',
             data: response
         });
@@ -125,14 +130,14 @@ const destroy = async (req, res) => {
     try {
         const id = req.params.id ? req.params.id.toString().replace(/\D/g, '') : null;
         if (!id) {
-            return res.status(400).send('informa ai paezao')
+            return res.status(400).send({ message: 'Informe o ID da pessoa' });
         }
 
-        const response = await Pessoa.findOne({
-            where: {
-                id
-            }
-        });
+        if (req.user.tipoPessoa !== 2 && Number(req.user.idPessoa) !== Number(id)) {
+            return res.status(403).send({ message: 'Acesso negado' });
+        }
+
+        const response = await Pessoa.findOne({ where: { id } });
 
         if (!response) {
             return res.status(404).send('Usuário não encontrado');
@@ -172,23 +177,18 @@ const login = async (req, res) => {
 
         const validaSenha = await bcrypt.compare(password, pessoa.passwordHash);
 
-        if (validaSenha) {
-            const token = jwt.sign({
-                idPessoa: pessoa.id,
-                nome: pessoa.nome,
-                email: pessoa.email,
-                tipoPessoa: pessoa.tipoPessoa
-            }, process.env.TOKEN_KEY, { expiresIn: '8h' });
-            return res.status(200).send({
-                message: 'Sucesso',
-                response: token
-            })
-        } else {
-            return res.status(400).send({
-                message: "Usuário ou senha incorretos"
-            });
+        if (!validaSenha) {
+            return res.status(400).send({ message: "Usuário ou senha incorretos" });
         }
 
+        const token = jwt.sign({
+            idPessoa: pessoa.id,
+            nome: pessoa.nome,
+            email: pessoa.email,
+            tipoPessoa: pessoa.tipoPessoa
+        }, process.env.TOKEN_KEY, { expiresIn: '8h' });
+
+        return res.status(200).send({ message: 'Sucesso', response: token });
     } catch (error) {
         return res.status(500).send({ message: error.message });
     }
@@ -196,13 +196,11 @@ const login = async (req, res) => {
 
 const createByAdmin = async (req, res) => {
     try {
-        const {
-            nome,
-            email,
-            telefone,
-            tipoPessoa,
-            password,
-        } = req.body;
+        const { nome, email, telefone, tipoPessoa, password } = req.body;
+
+        if (!nome || !email || !password) {
+            return res.status(400).send({ message: 'Nome, email e senha são obrigatórios.' });
+        }
 
         const passwordHash = await bcrypt.hash(password, 10);
 
@@ -210,7 +208,7 @@ const createByAdmin = async (req, res) => {
             nome,
             email,
             telefone,
-            tipoPessoa,
+            tipoPessoa: tipoPessoa ?? 1,
             passwordHash
         });
 

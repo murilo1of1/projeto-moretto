@@ -63,4 +63,14 @@ const Pessoa = sequelize.define(
     }
 );
 
+// Nunca expõe campos sensíveis nas respostas da API.
+Pessoa.prototype.toJSON = function () {
+    const values = { ...this.get() };
+    delete values.passwordHash;
+    delete values.resetPasswordToken;
+    delete values.resetPasswordExpires;
+    delete values.token;
+    return values;
+};
+
 export default Pessoa;
