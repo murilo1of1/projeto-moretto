@@ -9,21 +9,20 @@ import { AdminHeader } from '@/components/AdminHeader';
 import { FormPanel } from '@/components/FormPanel';
 import { toaster } from '@/components/ui/toaster';
 import api from '@/utils/axios';
+import { getUsuarioDoToken } from '@/utils/auth';
 
 export default function NovaPessoaAdminPage() {
   const router = useRouter();
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
+    const usuario = getUsuarioDoToken();
 
-    if (!token) {
+    if (!usuario) {
       router.push('/login');
       return;
     }
 
-    const dadosToken = JSON.parse(atob(token.split('.')[1]));
-
-    if (dadosToken.tipoPessoa !== 2) {
+    if (usuario.tipoPessoa !== 2) {
       router.push('/home');
     }
   }, [router]);

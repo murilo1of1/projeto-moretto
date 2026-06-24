@@ -38,28 +38,28 @@ const get = async (req, res) => {
 };
 
 const create = async (body) => {
-    try {
-        const {
-            nome,
-            email,
-            telefone,
-            password,
-        } = body;
+    const {
+        nome,
+        email,
+        telefone,
+        password,
+    } = body;
 
-        const passwordHash = await bcrypt.hash(password, 10);
-
-        const response = await Pessoa.create({
-            nome,
-            email,
-            telefone,
-            tipoPessoa: 1,
-            passwordHash
-        });
-
-        return response;
-    } catch (error) {
-        throw new Error(error.message);
+    if (!nome || !email || !password) {
+        throw new Error('Nome, email e senha são obrigatórios.');
     }
+
+    const passwordHash = await bcrypt.hash(password, 10);
+
+    const response = await Pessoa.create({
+        nome,
+        email,
+        telefone,
+        tipoPessoa: 1,
+        passwordHash
+    });
+
+    return response;
 };
 
 const update = async (body, id) => {
@@ -103,6 +103,18 @@ const persist = async (req, res) => {
             data: response
         });
     } catch (error) {
+        if (error.name === 'SequelizeUniqueConstraintError') {
+            return res.status(400).send({
+                message: 'Email já cadastrado.'
+            });
+        }
+
+        if (error.name === 'SequelizeValidationError') {
+            return res.status(400).send({
+                message: error.errors.map((err) => err.message).join(', ')
+            });
+        }
+
         return res.status(500).send({
             message: error.message
         });
@@ -207,6 +219,18 @@ const createByAdmin = async (req, res) => {
             data: response
         });
     } catch (error) {
+        if (error.name === 'SequelizeUniqueConstraintError') {
+            return res.status(400).send({
+                message: 'Email já cadastrado.'
+            });
+        }
+
+        if (error.name === 'SequelizeValidationError') {
+            return res.status(400).send({
+                message: error.errors.map((err) => err.message).join(', ')
+            });
+        }
+
         return res.status(500).send({
             message: error.message
         });

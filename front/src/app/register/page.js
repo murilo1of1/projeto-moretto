@@ -1,6 +1,7 @@
 'use client';
 
-import { Box, Flex, Heading, Text } from '@chakra-ui/react';
+import { Box, Flex, Heading, Link, Text } from '@chakra-ui/react';
+import NextLink from 'next/link';
 import RegisterInput from '@/components/RegisterInput';
 import { toaster } from '@/components/ui/toaster';
 import api from '@/utils/axios';
@@ -10,11 +11,21 @@ export default function RegisterPage() {
   const router = useRouter();
 
   const handleRegister = async ({ nome, email, senha, telefone }) => {
+    if (!nome || !email || !senha) {
+      toaster.create({
+        title: 'Preencha os campos obrigatórios',
+        description: 'Nome, e-mail e senha são obrigatórios.',
+        type: 'warning',
+        meta: { closable: true },
+      });
+      return;
+    }
+
     try {
       const response = await api.post('/pessoa', {
         nome,
         email,
-        telefone,
+        telefone: telefone || null,
         password: senha,
       });
 
@@ -29,9 +40,14 @@ export default function RegisterPage() {
       }
     } catch (error) {
       console.error('Erro ao registrar:', error);
+      const errorMessage =
+        error?.response?.data?.message ||
+        error?.message ||
+        'Verifique os dados e tente novamente.';
+
       toaster.create({
         title: 'Erro ao criar conta',
-        description: error.response?.data?.message || 'Verifique os dados e tente novamente.',
+        description: errorMessage,
         type: 'error',
         meta: { closable: true },
       });
@@ -128,8 +144,14 @@ export default function RegisterPage() {
           </Text>
 
           <RegisterInput onSubmit={handleRegister} />
-        </Box>
 
+          <Text mt={6} fontSize="sm" color="gray.600">
+            Já tem conta?{' '}
+            <Link as={NextLink} href="/login" color="#112a21" fontWeight="bold">
+              Fazer login
+            </Link>
+          </Text>
+        </Box>
       </Flex>
     </Flex>
   );

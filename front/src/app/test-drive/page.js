@@ -9,7 +9,6 @@ import {
   Grid,
   Heading,
   Input,
-  NativeSelect,
   SimpleGrid,
   Spinner,
   Text,
@@ -21,19 +20,7 @@ import { UserHeader } from '@/components/UserHeader';
 import { FormField } from '@/components/FormField';
 import { FormPanel } from '@/components/FormPanel';
 import { toaster } from '@/components/ui/toaster';
-
-function getUsuarioDoToken() {
-  const token = localStorage.getItem('token');
-
-  if (!token) return null;
-
-  try {
-    const payload = token.split('.')[1].replace(/-/g, '+').replace(/_/g, '/');
-    return JSON.parse(atob(payload));
-  } catch {
-    return null;
-  }
-}
+import { getUsuarioDoToken } from '@/utils/auth';
 
 export default function TestDrivePage() {
   const router = useRouter();
@@ -54,16 +41,17 @@ export default function TestDrivePage() {
       return;
     }
 
+    setUsuario(usuarioToken);
+
     const carregarAutomoveis = async () => {
       try {
-        setUsuario(usuarioToken);
         const response = await api.get('/automoveis');
         setAutomoveis(response.data.data || []);
       } catch (error) {
         console.error('Erro ao carregar automoveis:', error);
         toaster.create({
           title: 'Erro ao carregar automoveis',
-          description: 'Nao foi possivel buscar os carros disponiveis.',
+          description: 'Não foi possível buscar os carros disponíveis.',
           type: 'error',
           meta: { closable: true },
         });
@@ -118,7 +106,6 @@ export default function TestDrivePage() {
     try {
       await api.post('/testdrives', {
         automovelId: Number(automovelId),
-        pessoaId: Number(usuario.idPessoa),
         dataAgendamento,
         status: 'agendado',
       });
@@ -185,45 +172,54 @@ export default function TestDrivePage() {
           ) : (
             <Grid templateColumns={{ base: '1fr', lg: '1.05fr 0.95fr' }} gap={{ base: 8, lg: 12 }}>
               <Box>
-                <SimpleGrid columns={{ base: 1, md: 2 }} gap={6} mb={7}>
-                  <FormField label="Automovel">
-                    <NativeSelect.Root>
-                      <NativeSelect.Field
-                        value={automovelId}
-                        onChange={(e) => setAutomovelId(e.target.value)}
-                        borderRadius="none"
-                        border="none"
-                        borderBottom="1px solid #c8c0ad"
-                        bg="transparent"
-                        h="44px"
-                        px={0}
-                        _focus={{ boxShadow: 'none', borderBottomColor: '#0f2b1d' }}
-                      >
-                        <option value="">Selecione um automovel</option>
-                        {automoveis.map((automovel) => (
-                          <option key={automovel.id} value={automovel.id}>
-                            {automovel.marca} {automovel.modelo} - {automovel.ano}
-                          </option>
-                        ))}
-                      </NativeSelect.Field>
-                    </NativeSelect.Root>
-                  </FormField>
+                <Box mb={7}>
+                  <Text fontSize="10px" fontWeight="bold" letterSpacing="widest" color="#7a6242" mb={3}>
+                    SELECIONE O AUTOMÓVEL
+                  </Text>
 
-                  <FormField label="Data e horario">
-                    <Input
-                      type="datetime-local"
-                      value={dataAgendamento}
-                      onChange={(e) => setDataAgendamento(e.target.value)}
-                      borderRadius="none"
-                      border="none"
-                      borderBottom="1px solid #c8c0ad"
-                      bg="transparent"
-                      h="44px"
-                      px={0}
-                      _focus={{ boxShadow: 'none', borderBottomColor: '#0f2b1d' }}
-                    />
-                  </FormField>
-                </SimpleGrid>
+                  <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} gap={3}>
+                    {automoveis.map((auto) => (
+                      <Box
+                        key={auto.id}
+                        border={automovelId === String(auto.id) ? '2px solid #112a21' : '1px solid #d6c7aa'}
+                        bg="#fdfaf3"
+                        cursor="pointer"
+                        onClick={() => setAutomovelId(String(auto.id))}
+                        overflow="hidden"
+                        _hover={{ borderColor: '#112a21' }}
+                        transition="border-color 0.15s"
+                      >
+                        <CarColorBand cor={auto.cor} marca={auto.marca} height="60px" />
+                        <Box p={3}>
+                          <Text fontSize="8px" fontWeight="700" letterSpacing="2px" color="#7a6242">
+                            {auto.marca}
+                          </Text>
+                          <Text fontFamily="var(--font-cormorant-garamond)" fontSize="lg" fontWeight="600" lineHeight="1.2">
+                            {auto.modelo}
+                          </Text>
+                          <Text fontSize="11px" color="#9c8b6e" mt={1}>
+                            {auto.ano} · {auto.cor}
+                          </Text>
+                        </Box>
+                      </Box>
+                    ))}
+                  </SimpleGrid>
+                </Box>
+
+                <FormField label="Data e horário">
+                  <Input
+                    type="datetime-local"
+                    value={dataAgendamento}
+                    onChange={(e) => setDataAgendamento(e.target.value)}
+                    borderRadius="none"
+                    border="none"
+                    borderBottom="1px solid #c8c0ad"
+                    bg="transparent"
+                    h="44px"
+                    px={0}
+                    _focus={{ boxShadow: 'none', borderBottomColor: '#0f2b1d' }}
+                  />
+                </FormField>
 
                 <Box borderTop="1px solid #d6c7aa" pt={6}>
                   <Text fontSize="10px" fontWeight="bold" letterSpacing="widest" color="#7a6242" mb={3}>
@@ -286,6 +282,39 @@ export default function TestDrivePage() {
         </FormPanel>
       </Box>
     </>
+  );
+}
+
+function CarColorBand({ cor, marca, height = '60px' }) {
+  const COR_BAND = {
+    vermelho: '#5a1008',
+    amarelo: '#574200',
+    preto: '#141414',
+    branco: '#9e9a92',
+    cinza: '#363636',
+    prata: '#6e6e6e',
+    azul: '#1a2a5e',
+    verde: '#1a3e1a',
+  };
+
+  const bg = COR_BAND[cor?.toLowerCase()] ?? '#2a2a2a';
+
+  return (
+    <Box h={height} bg={bg} position="relative" overflow="hidden">
+      <Text
+        position="absolute"
+        right={3}
+        bottom={1}
+        fontFamily="var(--font-cormorant-garamond)"
+        fontSize="4xl"
+        fontWeight="700"
+        color="rgba(255,255,255,0.07)"
+        userSelect="none"
+        lineHeight={1}
+      >
+        {marca?.slice(0, 3).toUpperCase()}
+      </Text>
+    </Box>
   );
 }
 

@@ -13,19 +13,7 @@ import {
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { AdminHeader } from '@/components/AdminHeader';
-
-function getUsuarioDoToken() {
-  const token = localStorage.getItem('token');
-
-  if (!token) return null;
-
-  try {
-    const payload = token.split('.')[1].replace(/-/g, '+').replace(/_/g, '/');
-    return JSON.parse(atob(payload));
-  } catch {
-    return null;
-  }
-}
+import { getUsuarioDoToken } from '@/utils/auth';
 
 export default function AdminPage() {
   const router = useRouter();

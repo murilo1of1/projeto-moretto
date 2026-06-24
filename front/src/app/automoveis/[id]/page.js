@@ -25,6 +25,7 @@ export default function AutomovelDetalhesPage() {
   const [automovel, setAutomovel] = useState(null);
   const [carregando, setCarregando] = useState(true);
   const [erro, setErro] = useState('');
+  const [fotoAtiva, setFotoAtiva] = useState(0);
 
   useEffect(() => {
     const buscarAutomovel = async () => {
@@ -44,6 +45,10 @@ export default function AutomovelDetalhesPage() {
     }
   }, [id]);
 
+  useEffect(() => {
+    setFotoAtiva(0);
+  }, [id]);
+
   const imagens = useMemo(() => {
     if (!automovel?.fotos?.length) {
       return [imagemPadrao];
@@ -56,7 +61,7 @@ export default function AutomovelDetalhesPage() {
           return foto.url;
         }
 
-        return `http://localhost:8080${foto.url}`;
+        return `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080'}${foto.url}`;
       });
   }, [automovel]);
 
@@ -115,7 +120,7 @@ export default function AutomovelDetalhesPage() {
         <Grid templateColumns={{ base: '1fr', lg: '1.12fr 0.88fr' }} minH={{ lg: 'calc(100vh - 85px)' }}>
           <Box bg="#0a1f15" p={{ base: 5, lg: 10 }}>
             <Image
-              src={imagens[0]}
+              src={imagens[fotoAtiva]}
               alt={`${automovel.marca} ${automovel.modelo}`}
               w="100%"
               h={{ base: '340px', lg: '620px' }}
@@ -124,14 +129,21 @@ export default function AutomovelDetalhesPage() {
 
             {imagens.length > 1 && (
               <SimpleGrid columns={{ base: 3, md: 4 }} gap={3} mt={3}>
-                {imagens.slice(1, 5).map((imagem) => (
+                {imagens.slice(0, 5).map((imagem, index) => (
                   <Image
-                    key={imagem}
+                    key={`${imagem}-${index}`}
                     src={imagem}
-                    alt={`${automovel.marca} ${automovel.modelo}`}
+                    alt={`${automovel.marca} ${automovel.modelo} — foto ${index + 1}`}
                     h="110px"
                     w="100%"
                     objectFit="cover"
+                    cursor="pointer"
+                    opacity={fotoAtiva === index ? 1 : 0.5}
+                    outline={fotoAtiva === index ? '2px solid #f9f7f2' : 'none'}
+                    outlineOffset="-2px"
+                    onClick={() => setFotoAtiva(index)}
+                    _hover={{ opacity: fotoAtiva === index ? 1 : 0.8 }}
+                    transition="opacity 0.15s"
                   />
                 ))}
               </SimpleGrid>
@@ -180,7 +192,7 @@ export default function AutomovelDetalhesPage() {
               <Info label="Ano" value={automovel.ano} />
               <Info label="Cor" value={automovel.cor} />
               <Info label="Placa" value={automovel.placa} />
-              <Info label="Modelo" value={automovel.modelo} />
+              <Info label="Marca" value={automovel.marca} />
             </SimpleGrid>
 
             <Box borderTop="1px solid #c8b895" borderBottom="1px solid #c8b895" py={6} mb={8}>

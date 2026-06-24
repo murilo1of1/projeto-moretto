@@ -7,6 +7,7 @@ import {
   Button,
   Flex,
   Heading,
+  HStack,
   Input,
   SimpleGrid,
   Spinner,
@@ -17,17 +18,7 @@ import { useRouter } from 'next/navigation';
 import api from '@/utils/axios';
 import { AdminHeader } from '@/components/AdminHeader';
 import { toaster } from '@/components/ui/toaster';
-
-function getUsuarioDoToken() {
-  const token = localStorage.getItem('token');
-  if (!token) return null;
-
-  try {
-    return JSON.parse(atob(token.split('.')[1]));
-  } catch {
-    return null;
-  }
-}
+import { getUsuarioDoToken } from '@/utils/auth';
 
 export default function AdminPessoasPage() {
   const router = useRouter();
@@ -80,10 +71,6 @@ export default function AdminPessoasPage() {
   }, [pessoas, busca, tipo]);
 
   const excluirPessoa = async (pessoa) => {
-    const confirmou = window.confirm(`Excluir ${pessoa.nome}?`);
-
-    if (!confirmou) return;
-
     try {
       await api.delete(`/pessoa/${pessoa.id}`);
       setPessoas((lista) => lista.filter((item) => item.id !== pessoa.id));
@@ -172,17 +159,30 @@ export default function AdminPessoasPage() {
               _focus={{ boxShadow: 'none', borderBottomColor: '#0f2b1d' }}
             />
 
-            <Input
-              placeholder="Tipo: 1 cliente, 2 admin"
-              value={tipo}
-              onChange={(e) => setTipo(e.target.value)}
-              bg="transparent"
-              border="none"
-              borderBottom="1px solid #c8c0ad"
-              borderRadius="none"
-              maxW={{ base: '100%', md: '220px' }}
-              _focus={{ boxShadow: 'none', borderBottomColor: '#0f2b1d' }}
-            />
+            <HStack gap={2} wrap="wrap">
+              {[
+                { label: 'TODOS', value: '' },
+                { label: 'CLIENTES', value: '1' },
+                { label: 'ADMINS', value: '2' },
+              ].map(({ label, value }) => (
+                <Button
+                  key={value}
+                  bg={tipo === value ? '#112a21' : 'transparent'}
+                  color={tipo === value ? 'white' : '#112a21'}
+                  border="1px solid #112a21"
+                  borderRadius="none"
+                  h="38px"
+                  px={5}
+                  fontSize="10px"
+                  fontWeight="bold"
+                  letterSpacing="widest"
+                  onClick={() => setTipo(value)}
+                  _hover={{ bg: '#112a21', color: 'white' }}
+                >
+                  {label}
+                </Button>
+              ))}
+            </HStack>
           </Flex>
 
           <Box h="1px" bg="#9c8b6e" mb={8} />
@@ -211,6 +211,7 @@ export default function AdminPessoasPage() {
 }
 
 function PessoaCard({ pessoa, onExcluir }) {
+  const [confirmando, setConfirmando] = useState(false);
   const tipoLabel = pessoa.tipoPessoa === 2 ? 'ADMIN' : 'CLIENTE';
 
   return (
@@ -228,32 +229,59 @@ function PessoaCard({ pessoa, onExcluir }) {
       <Text color="#4c3b29" mb={2}>{pessoa.email}</Text>
       <Text color="#7a6242" fontSize="sm" mb={6}>{pessoa.telefone || 'Telefone não informado'}</Text>
 
-      <Flex gap={3}>
-        <Button
-          as={NextLink}
-          href={`/admin/pessoas/${pessoa.id}`}
-          variant="outline"
-          borderColor="#112a21"
-          color="#112a21"
-          borderRadius="none"
-          size="sm"
-          _hover={{ bg: '#112a21', color: 'white' }}
-        >
-          EDITAR
-        </Button>
+      {!confirmando ? (
+        <Flex gap={3}>
+          <Button
+            as={NextLink}
+            href={`/admin/pessoas/${pessoa.id}`}
+            variant="outline"
+            borderColor="#112a21"
+            color="#112a21"
+            borderRadius="none"
+            size="sm"
+            _hover={{ bg: '#112a21', color: 'white' }}
+          >
+            EDITAR
+          </Button>
 
-        <Button
-          onClick={() => onExcluir(pessoa)}
-          variant="outline"
-          borderColor="#7a1f1f"
-          color="#7a1f1f"
-          borderRadius="none"
-          size="sm"
-          _hover={{ bg: '#7a1f1f', color: 'white' }}
-        >
-          EXCLUIR
-        </Button>
-      </Flex>
+          <Button
+            onClick={() => setConfirmando(true)}
+            variant="outline"
+            borderColor="#7a1f1f"
+            color="#7a1f1f"
+            borderRadius="none"
+            size="sm"
+            _hover={{ bg: '#7a1f1f', color: 'white' }}
+          >
+            EXCLUIR
+          </Button>
+        </Flex>
+      ) : (
+        <Flex gap={3} align="center">
+          <Text fontSize="xs" color="#7a1f1f" fontWeight="bold" flex={1}>
+            Confirmar exclusão?
+          </Text>
+          <Button
+            onClick={() => { onExcluir(pessoa); setConfirmando(false); }}
+            bg="#7a1f1f"
+            color="white"
+            borderRadius="none"
+            size="sm"
+          >
+            SIM
+          </Button>
+          <Button
+            onClick={() => setConfirmando(false)}
+            variant="outline"
+            borderColor="#1a1a1a"
+            color="#1a1a1a"
+            borderRadius="none"
+            size="sm"
+          >
+            NÃO
+          </Button>
+        </Flex>
+      )}
     </Box>
   );
 }

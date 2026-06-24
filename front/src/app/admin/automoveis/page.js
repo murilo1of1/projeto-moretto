@@ -18,19 +18,9 @@ import { useRouter } from 'next/navigation';
 import api from '@/utils/axios';
 import { AdminHeader } from '@/components/AdminHeader';
 import { toaster } from '@/components/ui/toaster';
+import { getUsuarioDoToken } from '@/utils/auth';
 
 const imagemPadrao = 'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7';
-
-function getUsuarioDoToken() {
-  const token = localStorage.getItem('token');
-  if (!token) return null;
-
-  try {
-    return JSON.parse(atob(token.split('.')[1]));
-  } catch {
-    return null;
-  }
-}
 
 export default function AdminAutomoveisPage() {
   const router = useRouter();
@@ -83,10 +73,6 @@ export default function AdminAutomoveisPage() {
   }, [automoveis, busca, ano]);
 
   const excluirAutomovel = async (automovel) => {
-    const confirmou = window.confirm(`Excluir ${automovel.marca} ${automovel.modelo}?`);
-
-    if (!confirmou) return;
-
     try {
       await api.delete(`/automoveis/${automovel.id}`);
       setAutomoveis((lista) => lista.filter((item) => item.id !== automovel.id));
@@ -214,16 +200,27 @@ export default function AdminAutomoveisPage() {
 }
 
 function AutomovelCard({ automovel, onExcluir }) {
+  const [confirmando, setConfirmando] = useState(false);
+  const fotoUrl = automovel.fotos?.length > 0
+    ? (automovel.fotos[0].url.startsWith('http')
+        ? automovel.fotos[0].url
+        : `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080'}${automovel.fotos[0].url}`)
+    : null;
+
   return (
     <Box bg="#fdfaf3" border="1px solid #d6c7aa" overflow="hidden">
       <Box position="relative">
-        <Image
-          src={imagemPadrao}
-          alt={`${automovel.marca} ${automovel.modelo}`}
-          w="100%"
-          h="220px"
-          objectFit="cover"
-        />
+        {fotoUrl ? (
+          <Image
+            src={fotoUrl}
+            alt={`${automovel.marca} ${automovel.modelo}`}
+            w="100%"
+            h="220px"
+            objectFit="cover"
+          />
+        ) : (
+          <CarColorBand cor={automovel.cor} marca={automovel.marca} />
+        )}
 
         <Badge
           position="absolute"
@@ -251,46 +248,106 @@ function AutomovelCard({ automovel, onExcluir }) {
           <Text>{automovel.cor}</Text>
         </Flex>
 
-        <Flex gap={3}>
-          <Button
-            as={NextLink}
-            href={`/automoveis/${automovel.id}`}
-            variant="outline"
-            borderColor="#112a21"
-            color="#112a21"
-            borderRadius="none"
-            size="sm"
-            _hover={{ bg: '#112a21', color: 'white' }}
-          >
-            VER
-          </Button>
+        {!confirmando ? (
+          <Flex gap={3}>
+            <Button
+              as={NextLink}
+              href={`/automoveis/${automovel.id}`}
+              variant="outline"
+              borderColor="#112a21"
+              color="#112a21"
+              borderRadius="none"
+              size="sm"
+              _hover={{ bg: '#112a21', color: 'white' }}
+            >
+              VER
+            </Button>
 
-          <Button
-            as={NextLink}
-            href={`/admin/automoveis/${automovel.id}`}
-            variant="outline"
-            borderColor="#112a21"
-            color="#112a21"
-            borderRadius="none"
-            size="sm"
-            _hover={{ bg: '#112a21', color: 'white' }}
-          >
-            EDITAR
-          </Button>
+            <Button
+              as={NextLink}
+              href={`/admin/automoveis/${automovel.id}`}
+              variant="outline"
+              borderColor="#112a21"
+              color="#112a21"
+              borderRadius="none"
+              size="sm"
+              _hover={{ bg: '#112a21', color: 'white' }}
+            >
+              EDITAR
+            </Button>
 
-          <Button
-            onClick={() => onExcluir(automovel)}
-            variant="outline"
-            borderColor="#7a1f1f"
-            color="#7a1f1f"
-            borderRadius="none"
-            size="sm"
-            _hover={{ bg: '#7a1f1f', color: 'white' }}
-          >
-            EXCLUIR
-          </Button>
-        </Flex>
+            <Button
+              onClick={() => setConfirmando(true)}
+              variant="outline"
+              borderColor="#7a1f1f"
+              color="#7a1f1f"
+              borderRadius="none"
+              size="sm"
+              _hover={{ bg: '#7a1f1f', color: 'white' }}
+            >
+              EXCLUIR
+            </Button>
+          </Flex>
+        ) : (
+          <Flex gap={3} align="center">
+            <Text fontSize="xs" color="#7a1f1f" fontWeight="bold" flex={1}>
+              Confirmar exclusão?
+            </Text>
+            <Button
+              onClick={() => { onExcluir(automovel); setConfirmando(false); }}
+              bg="#7a1f1f"
+              color="white"
+              borderRadius="none"
+              size="sm"
+            >
+              SIM
+            </Button>
+            <Button
+              onClick={() => setConfirmando(false)}
+              variant="outline"
+              borderColor="#1a1a1a"
+              color="#1a1a1a"
+              borderRadius="none"
+              size="sm"
+            >
+              NÃO
+            </Button>
+          </Flex>
+        )}
       </Box>
+    </Box>
+  );
+}
+
+const COR_BAND = {
+  vermelho: '#5a1008',
+  amarelo: '#574200',
+  preto: '#141414',
+  branco: '#9e9a92',
+  cinza: '#363636',
+  prata: '#6e6e6e',
+  azul: '#1a2a5e',
+  verde: '#1a3e1a',
+};
+
+function CarColorBand({ cor, marca, height = '200px' }) {
+  const bg = COR_BAND[cor?.toLowerCase()] ?? '#2a2a2a';
+
+  return (
+    <Box h={height} bg={bg} position="relative" overflow="hidden">
+      <Text
+        position="absolute"
+        right={3}
+        bottom={1}
+        fontFamily="var(--font-cormorant-garamond)"
+        fontSize="5xl"
+        fontWeight="700"
+        color="rgba(255,255,255,0.07)"
+        userSelect="none"
+        lineHeight={1}
+      >
+        {marca?.slice(0, 3).toUpperCase()}
+      </Text>
     </Box>
   );
 }

@@ -15,24 +15,12 @@ import { useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import api from '@/utils/axios';
 import { UserHeader } from '@/components/UserHeader';
-
-function getUsuarioDoToken() {
-  const token = localStorage.getItem('token');
-
-  if (!token) return null;
-
-  try {
-    const payload = token.split('.')[1].replace(/-/g, '+').replace(/_/g, '/');
-    return JSON.parse(atob(payload));
-  } catch {
-    return null;
-  }
-}
+import { getUsuarioDoToken } from '@/utils/auth';
 
 export default function MinhaAreaPage() {
   const router = useRouter();
   const [usuario, setUsuario] = useState(null);
-  const [testDrives, setTestDrives] = useState([]);
+  const [meusAgendamentos, setMeusAgendamentos] = useState([]);
   const [carregando, setCarregando] = useState(true);
 
   useEffect(() => {
@@ -48,7 +36,7 @@ export default function MinhaAreaPage() {
     const buscarAgendamentos = async () => {
       try {
         const response = await api.get('/testdrives');
-        setTestDrives(response.data.data || []);
+        setMeusAgendamentos(response.data.data || []);
       } catch (error) {
         console.error('Erro ao buscar test drives:', error);
       } finally {
@@ -58,12 +46,6 @@ export default function MinhaAreaPage() {
 
     buscarAgendamentos();
   }, [router]);
-
-  const meusAgendamentos = useMemo(() => {
-    if (!usuario) return [];
-
-    return testDrives.filter((testDrive) => testDrive.pessoaId === usuario.idPessoa);
-  }, [testDrives, usuario]);
 
   if (carregando) {
     return (

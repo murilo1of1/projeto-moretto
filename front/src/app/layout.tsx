@@ -26,7 +26,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${cormorantGaramond.variable}`}>
+    <html lang="pt-BR" className={`${inter.variable} ${cormorantGaramond.variable}`}>
       <body>
         <Providers>
           {children}

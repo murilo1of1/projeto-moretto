@@ -10,6 +10,7 @@ import {
   Image,
   Input,
   SimpleGrid,
+  Spinner,
   Text,
 } from '@chakra-ui/react';
 import { useEffect, useMemo, useState } from 'react';
@@ -20,6 +21,7 @@ export default function HomePage() {
   const [automoveis, setAutomoveis] = useState([]);
   const [busca, setBusca] = useState('');
   const [ano, setAno] = useState('');
+  const [carregando, setCarregando] = useState(true);
 
   useEffect(() => {
     const buscarAutomoveis = async () => {
@@ -28,6 +30,8 @@ export default function HomePage() {
         setAutomoveis(response.data.data || []);
       } catch (error) {
         console.error('Erro ao buscar automóveis:', error);
+      } finally {
+        setCarregando(false);
       }
     };
 
@@ -43,8 +47,6 @@ export default function HomePage() {
       return combinaBusca && combinaAno;
     });
   }, [automoveis, busca, ano]);
-
-  const destaques = automoveisFiltrados.slice(0, 3);
 
   return (
     <>
@@ -185,26 +187,26 @@ export default function HomePage() {
 
           <Box h="1px" bg="#9c8b6e" mb={8} />
 
-          {destaques.length > 0 && (
-            <SimpleGrid columns={{ base: 1, lg: 3 }} gap={8} mb={12}>
-              {destaques.map((automovel) => (
-                <CarCard key={automovel.id} automovel={automovel} destaque />
-              ))}
-            </SimpleGrid>
-          )}
+          {carregando ? (
+            <Flex py={20} justify="center">
+              <Spinner color="#0f2b1d" size="xl" />
+            </Flex>
+          ) : (
+            <>
+              <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} gap={8}>
+                {automoveisFiltrados.map((automovel, index) => (
+                  <CarCard key={automovel.id} automovel={automovel} destaque={index < 3} />
+                ))}
+              </SimpleGrid>
 
-          <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} gap={8}>
-            {automoveisFiltrados.map((automovel) => (
-              <CarCard key={automovel.id} automovel={automovel} />
-            ))}
-          </SimpleGrid>
-
-          {automoveisFiltrados.length === 0 && (
-            <Box py={16} textAlign="center">
-              <Text color="gray.600" fontFamily="var(--font-inter)">
-                Nenhum automóvel encontrado com os filtros informados.
-              </Text>
-            </Box>
+              {automoveisFiltrados.length === 0 && (
+                <Box py={16} textAlign="center">
+                  <Text color="gray.600" fontFamily="var(--font-inter)">
+                    Nenhum automóvel encontrado com os filtros informados.
+                  </Text>
+                </Box>
+              )}
+            </>
           )}
         </Box>
       </Box>
@@ -212,22 +214,64 @@ export default function HomePage() {
   );
 }
 
+const COR_BAND = {
+  vermelho: '#5a1008',
+  amarelo: '#574200',
+  preto: '#141414',
+  branco: '#9e9a92',
+  cinza: '#363636',
+  prata: '#6e6e6e',
+  azul: '#1a2a5e',
+  verde: '#1a3e1a',
+};
+
+function CarColorBand({ cor, marca, height = '200px' }) {
+  const bg = COR_BAND[cor?.toLowerCase()] ?? '#2a2a2a';
+
+  return (
+    <Box h={height} bg={bg} position="relative" overflow="hidden">
+      <Text
+        position="absolute"
+        right={3}
+        bottom={1}
+        fontFamily="var(--font-cormorant-garamond)"
+        fontSize="5xl"
+        fontWeight="700"
+        color="rgba(255,255,255,0.07)"
+        userSelect="none"
+        lineHeight={1}
+      >
+        {marca?.slice(0, 3).toUpperCase()}
+      </Text>
+    </Box>
+  );
+}
+
 function CarCard({ automovel, destaque = false }) {
+  const fotoUrl = automovel.fotos?.length > 0
+    ? (automovel.fotos[0].url.startsWith('http')
+        ? automovel.fotos[0].url
+        : `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080'}${automovel.fotos[0].url}`)
+    : null;
+
   return (
     <Box
       bg="#fdfaf3"
       border="1px solid #d6c7aa"
-      boxShadow="0 4px 12px rgba(0,0,0,0.12)"
       overflow="hidden"
     >
       <Box position="relative">
-        <Image
-          src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7"
-          alt={`${automovel.marca} ${automovel.modelo}`}
-          w="100%"
-          h={destaque ? '240px' : '200px'}
-          objectFit="cover"
-        />
+        {fotoUrl ? (
+          <Image
+            src={fotoUrl}
+            alt={`${automovel.marca} ${automovel.modelo}`}
+            w="100%"
+            h={destaque ? '240px' : '200px'}
+            objectFit="cover"
+          />
+        ) : (
+          <CarColorBand cor={automovel.cor} marca={automovel.marca} height={destaque ? '240px' : '200px'} />
+        )}
 
         {destaque && (
           <Badge
@@ -266,31 +310,49 @@ function CarCard({ automovel, destaque = false }) {
         </Flex>
 
         <Text
-          fontFamily="var(--font-cormorant-garamond)"
-          fontStyle="italic"
-          fontSize="sm"
-          color="#2d241b"
-          mb={5}
+          fontFamily="var(--font-mono)"
+          fontSize="xs"
+          color="#9c8b6e"
+          letterSpacing="widest"
+          mb={4}
         >
-          Clássico selecionado para compor o acervo Flow Motors.
+          {automovel.placa}
         </Text>
 
-        <Button
-          as={NextLink}
-          href={`/automoveis/${automovel.id}`}
-          variant="outline"
-          borderColor="#0f2b1d"
-          color="#0f2b1d"
-          borderRadius="none"
-          h="42px"
-          w="100%"
-          fontSize="xs"
-          fontWeight="bold"
-          letterSpacing="widest"
-          _hover={{ bg: '#0f2b1d', color: 'white' }}
-        >
-          VER DETALHES
-        </Button>
+        <Flex gap={3} align="center">
+          <Button
+            as={NextLink}
+            href={`/automoveis/${automovel.id}`}
+            variant="outline"
+            borderColor="#0f2b1d"
+            color="#0f2b1d"
+            borderRadius="none"
+            h="42px"
+            flex={1}
+            fontSize="xs"
+            fontWeight="bold"
+            letterSpacing="widest"
+            _hover={{ bg: '#0f2b1d', color: 'white' }}
+          >
+            DETALHES
+          </Button>
+
+          <Button
+            as={NextLink}
+            href={`/test-drive?automovelId=${automovel.id}`}
+            bg="#112a21"
+            color="white"
+            borderRadius="none"
+            h="42px"
+            flex={1}
+            fontSize="xs"
+            fontWeight="bold"
+            letterSpacing="widest"
+            _hover={{ bg: '#1a3e31' }}
+          >
+            TEST DRIVE
+          </Button>
+        </Flex>
       </Box>
     </Box>
   );

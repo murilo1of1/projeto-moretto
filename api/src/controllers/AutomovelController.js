@@ -1,4 +1,5 @@
 import Automovel from "../models/AutomovelModel.js";
+import AutomovelFoto from "../models/AutomovelFotoModel.js";
 
 const get = async (req, res) => {
     try {
@@ -6,6 +7,7 @@ const get = async (req, res) => {
 
         if (!id) {
             const response = await Automovel.findAll({
+                include: [{ model: AutomovelFoto, as: 'fotos' }],
                 order: [['id', 'desc']]
             });
 
@@ -16,7 +18,8 @@ const get = async (req, res) => {
         }
 
         const response = await Automovel.findOne({
-            where: { id }
+            where: { id },
+            include: [{ model: AutomovelFoto, as: 'fotos' }]
         });
 
         if (!response) {
