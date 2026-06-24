@@ -98,7 +98,7 @@ export default function AdminAutomoveisPage() {
     <>
       <AdminHeader />
 
-      <Box minH="100vh" bg="#f9f7f2" pt="85px">
+      <Box minH="100vh" bg="brand.cream" pt="85px">
         <Box px={{ base: 6, lg: 14 }} py={{ base: 10, lg: 14 }}>
           <Flex
             justify="space-between"
@@ -108,7 +108,7 @@ export default function AdminAutomoveisPage() {
             mb={8}
           >
             <Box>
-              <Text fontSize="xs" fontWeight="bold" letterSpacing="widest" color="#7a6242" mb={4}>
+              <Text fontSize="xs" fontWeight="bold" letterSpacing="widest" color="brand.muted" mb={4}>
                 ADMINISTRAÇÃO
               </Text>
 
@@ -116,7 +116,7 @@ export default function AdminAutomoveisPage() {
                 fontFamily="var(--font-cormorant-garamond)"
                 fontSize={{ base: '5xl', lg: '7xl' }}
                 lineHeight="0.95"
-                color="#1a1a1a"
+                color="brand.ink"
                 mb={4}
               >
                 Showroom
@@ -126,7 +126,7 @@ export default function AdminAutomoveisPage() {
                 fontFamily="var(--font-cormorant-garamond)"
                 fontStyle="italic"
                 fontSize={{ base: 'lg', lg: 'xl' }}
-                color="#4c3b29"
+                color="brand.subtle"
               >
                 Gerencie os veículos disponíveis no acervo Flow Motors.
               </Text>
@@ -135,7 +135,7 @@ export default function AdminAutomoveisPage() {
             <Button
               as={NextLink}
               href="/admin/automoveis/novo"
-              bg="#112a21"
+              bg="brand.green"
               color="white"
               borderRadius="none"
               h="48px"
@@ -143,7 +143,7 @@ export default function AdminAutomoveisPage() {
               fontSize="xs"
               fontWeight="bold"
               letterSpacing="widest"
-              _hover={{ bg: '#1a3e31' }}
+              _hover={{ bg: 'brand.greenHover' }}
             >
               NOVO AUTOMÓVEL
             </Button>
@@ -158,7 +158,7 @@ export default function AdminAutomoveisPage() {
               border="none"
               borderBottom="1px solid #c8c0ad"
               borderRadius="none"
-              _focus={{ boxShadow: 'none', borderBottomColor: '#0f2b1d' }}
+              _focus={{ boxShadow: 'none', borderBottomColor: 'brand.accent' }}
             />
 
             <Input
@@ -170,15 +170,15 @@ export default function AdminAutomoveisPage() {
               borderBottom="1px solid #c8c0ad"
               borderRadius="none"
               maxW={{ base: '100%', md: '140px' }}
-              _focus={{ boxShadow: 'none', borderBottomColor: '#0f2b1d' }}
+              _focus={{ boxShadow: 'none', borderBottomColor: 'brand.accent' }}
             />
           </Flex>
 
-          <Box h="1px" bg="#9c8b6e" mb={8} />
+          <Box h="1px" bg="brand.divider" mb={8} />
 
           {carregando ? (
             <Flex py={20} justify="center">
-              <Spinner color="#0f2b1d" size="xl" />
+              <Spinner color="brand.accent" size="xl" />
             </Flex>
           ) : (
             <SimpleGrid columns={{ base: 1, md: 2, xl: 3 }} gap={7}>
@@ -208,7 +208,7 @@ function AutomovelCard({ automovel, onExcluir }) {
     : null;
 
   return (
-    <Box bg="#fdfaf3" border="1px solid #d6c7aa" overflow="hidden">
+    <Box bg="brand.card" border="1px solid #d6c7aa" overflow="hidden">
       <Box position="relative">
         {fotoUrl ? (
           <Image
@@ -226,8 +226,8 @@ function AutomovelCard({ automovel, onExcluir }) {
           position="absolute"
           top={4}
           left={4}
-          bg="#f9f7f2"
-          color="#0f2b1d"
+          bg="brand.cream"
+          color="brand.accent"
           borderRadius="none"
           px={3}
           py={1}
@@ -239,11 +239,11 @@ function AutomovelCard({ automovel, onExcluir }) {
       </Box>
 
       <Box p={6}>
-        <Heading fontFamily="var(--font-cormorant-garamond)" fontSize="3xl" color="#1a1a1a" mb={2}>
+        <Heading fontFamily="var(--font-cormorant-garamond)" fontSize="3xl" color="brand.ink" mb={2}>
           {automovel.marca} {automovel.modelo}
         </Heading>
 
-        <Flex justify="space-between" color="#7a6242" fontSize="sm" fontWeight="bold" mb={6}>
+        <Flex justify="space-between" color="brand.muted" fontSize="sm" fontWeight="bold" mb={6}>
           <Text>{automovel.ano}</Text>
           <Text>{automovel.cor}</Text>
         </Flex>
@@ -254,11 +254,11 @@ function AutomovelCard({ automovel, onExcluir }) {
               as={NextLink}
               href={`/automoveis/${automovel.id}`}
               variant="outline"
-              borderColor="#112a21"
-              color="#112a21"
+              borderColor="brand.green"
+              color="brand.green"
               borderRadius="none"
               size="sm"
-              _hover={{ bg: '#112a21', color: 'white' }}
+              _hover={{ bg: 'brand.green', color: 'white' }}
             >
               VER
             </Button>
@@ -267,11 +267,11 @@ function AutomovelCard({ automovel, onExcluir }) {
               as={NextLink}
               href={`/admin/automoveis/${automovel.id}`}
               variant="outline"
-              borderColor="#112a21"
-              color="#112a21"
+              borderColor="brand.green"
+              color="brand.green"
               borderRadius="none"
               size="sm"
-              _hover={{ bg: '#112a21', color: 'white' }}
+              _hover={{ bg: 'brand.green', color: 'white' }}
             >
               EDITAR
             </Button>
@@ -279,23 +279,23 @@ function AutomovelCard({ automovel, onExcluir }) {
             <Button
               onClick={() => setConfirmando(true)}
               variant="outline"
-              borderColor="#7a1f1f"
-              color="#7a1f1f"
+              borderColor="brand.danger"
+              color="brand.danger"
               borderRadius="none"
               size="sm"
-              _hover={{ bg: '#7a1f1f', color: 'white' }}
+              _hover={{ bg: 'brand.danger', color: 'white' }}
             >
               EXCLUIR
             </Button>
           </Flex>
         ) : (
           <Flex gap={3} align="center">
-            <Text fontSize="xs" color="#7a1f1f" fontWeight="bold" flex={1}>
+            <Text fontSize="xs" color="brand.danger" fontWeight="bold" flex={1}>
               Confirmar exclusão?
             </Text>
             <Button
               onClick={() => { onExcluir(automovel); setConfirmando(false); }}
-              bg="#7a1f1f"
+              bg="brand.danger"
               color="white"
               borderRadius="none"
               size="sm"
@@ -305,8 +305,8 @@ function AutomovelCard({ automovel, onExcluir }) {
             <Button
               onClick={() => setConfirmando(false)}
               variant="outline"
-              borderColor="#1a1a1a"
-              color="#1a1a1a"
+              borderColor="brand.ink"
+              color="brand.ink"
               borderRadius="none"
               size="sm"
             >

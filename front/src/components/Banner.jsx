@@ -6,7 +6,7 @@ export function Banner() {
     <Flex
       w="100%"
       h="80vh"
-      bg="#1a1a1a"
+      bg="brand.ink"
       
       bgSize="cover"
       bgPosition="center"
@@ -25,7 +25,7 @@ export function Banner() {
         left={0}
         w="full"
         h="full"
-        bgGradient="linear(to-b, blackAlpha.700, blackAlpha.500, blackAlpha.900)"
+        bgImage="linear-gradient(to bottom, rgba(0,0,0,0.6), rgba(0,0,0,0.4), rgba(0,0,0,0.85))"
         zIndex={1}
       />
 
@@ -66,7 +66,7 @@ export function Banner() {
         <Button
           as={NextLink}
           href="/register"
-          bg="#235a40"
+          bg="brand.accentHover"
           color="white"
           borderRadius="none"
           px={10}
@@ -79,7 +79,7 @@ export function Banner() {
           transition="all 0.3s ease"
           _hover={{ 
             bg: 'white', 
-            color: '#235a40', 
+            color: 'brand.accentHover', 
             transform: 'translateY(-2px)',
             boxShadow: '0 10px 20px rgba(0,0,0,0.2)'
           }}

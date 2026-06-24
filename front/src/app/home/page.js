@@ -52,13 +52,13 @@ export default function HomePage() {
     <>
       <UserHeader />
 
-      <Box minH="100vh" bg="#f9f7f2" pt="85px">
+      <Box minH="100vh" bg="brand.cream" pt="85px">
         <Box
           minH={{ base: '520px', lg: '620px' }}
           display="flex"
           alignItems="center"
           px={{ base: 6, lg: 14 }}
-          bg="#0a1f15"
+          bg="brand.deep"
           position="relative"
           overflow="hidden"
         >
@@ -112,15 +112,15 @@ export default function HomePage() {
             <Button
               as={NextLink}
               href="#catalogo"
-              bg="#f9f7f2"
-              color="#0f2b1d"
+              bg="brand.cream"
+              color="brand.accent"
               borderRadius="none"
               h="52px"
               px={8}
               fontSize="xs"
               fontWeight="bold"
               letterSpacing="widest"
-              _hover={{ bg: '#e7dfcf' }}
+              _hover={{ bg: 'brand.pill' }}
             >
               VER CATÁLOGO
             </Button>
@@ -142,7 +142,7 @@ export default function HomePage() {
                 fontSize={{ base: '4xl', lg: '6xl' }}
                 fontWeight="700"
                 letterSpacing="widest"
-                color="#1a1a1a"
+                color="brand.ink"
                 mb={3}
               >
                 CLÁSSICOS DISPONÍVEIS
@@ -168,7 +168,7 @@ export default function HomePage() {
                 borderBottom="1px solid #c8c0ad"
                 borderRadius="none"
                 minW={{ base: '100%', md: '280px' }}
-                _focus={{ boxShadow: 'none', borderBottomColor: '#0f2b1d' }}
+                _focus={{ boxShadow: 'none', borderBottomColor: 'brand.accent' }}
               />
 
               <Input
@@ -180,16 +180,16 @@ export default function HomePage() {
                 borderBottom="1px solid #c8c0ad"
                 borderRadius="none"
                 maxW={{ base: '100%', md: '120px' }}
-                _focus={{ boxShadow: 'none', borderBottomColor: '#0f2b1d' }}
+                _focus={{ boxShadow: 'none', borderBottomColor: 'brand.accent' }}
               />
             </Flex>
           </Flex>
 
-          <Box h="1px" bg="#9c8b6e" mb={8} />
+          <Box h="1px" bg="brand.divider" mb={8} />
 
           {carregando ? (
             <Flex py={20} justify="center">
-              <Spinner color="#0f2b1d" size="xl" />
+              <Spinner color="brand.accent" size="xl" />
             </Flex>
           ) : (
             <>
@@ -256,7 +256,7 @@ function CarCard({ automovel, destaque = false }) {
 
   return (
     <Box
-      bg="#fdfaf3"
+      bg="brand.card"
       border="1px solid #d6c7aa"
       overflow="hidden"
     >
@@ -278,8 +278,8 @@ function CarCard({ automovel, destaque = false }) {
             position="absolute"
             top={4}
             left={4}
-            bg="#f9f7f2"
-            color="#0f2b1d"
+            bg="brand.cream"
+            color="brand.accent"
             borderRadius="none"
             px={3}
             py={1}
@@ -304,7 +304,7 @@ function CarCard({ automovel, destaque = false }) {
 
         <Box h="1px" bg="#d6c7aa" mb={4} />
 
-        <Flex justify="space-between" color="#7a6242" fontSize="sm" fontWeight="bold" mb={4}>
+        <Flex justify="space-between" color="brand.muted" fontSize="sm" fontWeight="bold" mb={4}>
           <Text>{automovel.ano}</Text>
           <Text>{automovel.cor}</Text>
         </Flex>
@@ -312,7 +312,7 @@ function CarCard({ automovel, destaque = false }) {
         <Text
           fontFamily="var(--font-mono)"
           fontSize="xs"
-          color="#9c8b6e"
+          color="brand.divider"
           letterSpacing="widest"
           mb={4}
         >
@@ -324,15 +324,15 @@ function CarCard({ automovel, destaque = false }) {
             as={NextLink}
             href={`/automoveis/${automovel.id}`}
             variant="outline"
-            borderColor="#0f2b1d"
-            color="#0f2b1d"
+            borderColor="brand.accent"
+            color="brand.accent"
             borderRadius="none"
             h="42px"
             flex={1}
             fontSize="xs"
             fontWeight="bold"
             letterSpacing="widest"
-            _hover={{ bg: '#0f2b1d', color: 'white' }}
+            _hover={{ bg: 'brand.accent', color: 'white' }}
           >
             DETALHES
           </Button>
@@ -340,7 +340,7 @@ function CarCard({ automovel, destaque = false }) {
           <Button
             as={NextLink}
             href={`/test-drive?automovelId=${automovel.id}`}
-            bg="#112a21"
+            bg="brand.green"
             color="white"
             borderRadius="none"
             h="42px"
@@ -348,7 +348,7 @@ function CarCard({ automovel, destaque = false }) {
             fontSize="xs"
             fontWeight="bold"
             letterSpacing="widest"
-            _hover={{ bg: '#1a3e31' }}
+            _hover={{ bg: 'brand.greenHover' }}
           >
             TEST DRIVE
           </Button>

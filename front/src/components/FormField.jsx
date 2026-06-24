@@ -9,7 +9,7 @@ export function FormField({ label, helper, children }) {
         fontSize="10px"
         fontWeight="bold"
         letterSpacing="widest"
-        color="#7a6242"
+        color="brand.muted"
         mb={2}
         textTransform="uppercase"
       >
@@ -19,7 +19,7 @@ export function FormField({ label, helper, children }) {
       {children}
 
       {helper && (
-        <Text mt={2} fontSize="xs" color="#7a6242">
+        <Text mt={2} fontSize="xs" color="brand.muted">
           {helper}
         </Text>
       )}

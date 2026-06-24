@@ -2,7 +2,7 @@ import { Box, Flex, Text, Link, VStack } from '@chakra-ui/react';
 
 export function Footer() {
   return (
-    <Box w="100%" bg="#1a1a1a" color="white" py={20} px={10}>
+    <Box w="100%" bg="brand.ink" color="white" py={20} px={10}>
       <Flex justify="space-between" align="flex-start" maxW="1200px" mx="auto" direction={{ base: "column", md: "row" }} gap={10}>
         <Box maxW="400px">
           <Text 
@@ -20,7 +20,7 @@ export function Footer() {
         </Box>
 
         <Flex gap={{ base: 12, md: 24 }}>
-          <VStack align="flex-start" spacing={4}>
+          <VStack align="flex-start" gap={4}>
             <Text fontSize="xs" fontWeight="bold" letterSpacing="widest" mb={2} color="gray.300" fontFamily="var(--font-inter)">JURÍDICO</Text>
             <Link fontSize="sm" color="gray.400" transition="all 0.3s" _hover={{ color: 'white', textDecoration: 'none' }} fontFamily="var(--font-inter)">Política de Privacidade</Link>
             <Link fontSize="sm" color="gray.400" transition="all 0.3s" _hover={{ color: 'white', textDecoration: 'none' }} fontFamily="var(--font-inter)">Termos de Serviço</Link>
@@ -28,7 +28,7 @@ export function Footer() {
             <Link fontSize="sm" color="gray.400" transition="all 0.3s" _hover={{ color: 'white', textDecoration: 'none' }} fontFamily="var(--font-inter)">Política de Cookies</Link>
           </VStack>
 
-          <VStack align="flex-start" spacing={4}>
+          <VStack align="flex-start" gap={4}>
             <Text fontSize="xs" fontWeight="bold" letterSpacing="widest" mb={2} color="gray.300" fontFamily="var(--font-inter)">ATENDIMENTO</Text>
             <Link fontSize="sm" color="gray.400" transition="all 0.3s" _hover={{ color: 'white', textDecoration: 'none' }} fontFamily="var(--font-inter)">Consultas Privadas</Link>
             <Link fontSize="sm" color="gray.400" transition="all 0.3s" _hover={{ color: 'white', textDecoration: 'none' }} fontFamily="var(--font-inter)">Agendar Visita</Link>

@@ -62,7 +62,7 @@ export default function AdminTestDrivesPage() {
     <>
       <AdminHeader />
 
-      <Box minH="100vh" bg="#f9f7f2" pt="85px">
+      <Box minH="100vh" bg="brand.cream" pt="85px">
         <Box px={{ base: 6, lg: 14 }} py={{ base: 10, lg: 14 }}>
           <Flex
             justify="space-between"
@@ -72,7 +72,7 @@ export default function AdminTestDrivesPage() {
             mb={8}
           >
             <Box>
-              <Text fontSize="xs" fontWeight="bold" letterSpacing="widest" color="#7a6242" mb={4}>
+              <Text fontSize="xs" fontWeight="bold" letterSpacing="widest" color="brand.muted" mb={4}>
                 TEST DRIVES
               </Text>
 
@@ -80,7 +80,7 @@ export default function AdminTestDrivesPage() {
                 fontFamily="var(--font-cormorant-garamond)"
                 fontSize={{ base: '5xl', lg: '7xl' }}
                 lineHeight="0.95"
-                color="#1a1a1a"
+                color="brand.ink"
                 mb={4}
               >
                 Agendamentos em aberto
@@ -90,14 +90,14 @@ export default function AdminTestDrivesPage() {
                 fontFamily="var(--font-cormorant-garamond)"
                 fontStyle="italic"
                 fontSize={{ base: 'lg', lg: 'xl' }}
-                color="#4c3b29"
+                color="brand.subtle"
               >
                 Consulte os registros de test drives e acompanhe o status de cada reserva.
               </Text>
             </Box>
 
             <Badge
-              bg="#112a21"
+              bg="brand.green"
               color="white"
               borderRadius="none"
               px={4}
@@ -111,29 +111,29 @@ export default function AdminTestDrivesPage() {
 
           {carregando ? (
             <Flex py={20} justify="center">
-              <Spinner color="#0f2b1d" size="xl" />
+              <Spinner color="brand.accent" size="xl" />
             </Flex>
           ) : testDrives.length === 0 ? (
             <Box py={24} textAlign="center">
-              <Text color="#4c3b29">Nenhum test drive encontrado no momento.</Text>
+              <Text color="brand.subtle">Nenhum test drive encontrado no momento.</Text>
             </Box>
           ) : (
             <SimpleGrid columns={{ base: 1, md: 2, xl: 3 }} gap={6}>
               {testDrives.map((testDrive) => {
                 const cfg = STATUS_CONFIG[testDrive.status] ?? STATUS_CONFIG.agendado;
                 return (
-                  <Box key={testDrive.id} bg="#fdfaf3" border="1px solid #d6c7aa" p={6}>
+                  <Box key={testDrive.id} bg="brand.card" border="1px solid #d6c7aa" p={6}>
                     <Flex justify="space-between" mb={4} gap={3}>
                       <Box>
                         <Heading
                           fontFamily="var(--font-cormorant-garamond)"
                           fontSize="2xl"
-                          color="#1a1a1a"
+                          color="brand.ink"
                           mb={2}
                         >
                           {testDrive.Automovel?.marca ?? 'Carro'} {testDrive.Automovel?.modelo ?? ''}
                         </Heading>
-                        <Text color="#7a6242" fontSize="sm">
+                        <Text color="brand.muted" fontSize="sm">
                           {testDrive.Automovel?.ano ?? '----'} · Placa {testDrive.Automovel?.placa ?? '----'}
                         </Text>
                       </Box>
@@ -152,11 +152,11 @@ export default function AdminTestDrivesPage() {
                       </Badge>
                     </Flex>
 
-                    <Text color="#4c3b29" mb={4}>
+                    <Text color="brand.subtle" mb={4}>
                       Cliente: {testDrive.Pessoa?.nome ?? 'Desconhecido'}
                     </Text>
 
-                    <Text color="#2d241b" fontSize="sm" mb={6}>
+                    <Text color="brand.subtleStrong" fontSize="sm" mb={6}>
                       {new Date(testDrive.dataAgendamento).toLocaleString('pt-BR', {
                         weekday: 'long',
                         day: 'numeric',
@@ -171,14 +171,14 @@ export default function AdminTestDrivesPage() {
                       as={NextLink}
                       href={`/admin/pessoas/${testDrive.pessoaId}`}
                       variant="outline"
-                      borderColor="#112a21"
-                      color="#112a21"
+                      borderColor="brand.green"
+                      color="brand.green"
                       borderRadius="none"
                       h="42px"
                       fontSize="xs"
                       fontWeight="bold"
                       letterSpacing="widest"
-                      _hover={{ bg: '#112a21', color: 'white' }}
+                      _hover={{ bg: 'brand.green', color: 'white' }}
                     >
                       VER CLIENTE
                     </Button>

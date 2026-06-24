@@ -23,29 +23,29 @@ export function Header() {
         fontSize="3xl"
         fontWeight="600"
         letterSpacing="widest"
-        color="#1a1a1a"
+        color="brand.ink"
         textDecoration="none"
         cursor="pointer"
-        _hover={{ textDecoration: 'none', color: '#1a1a1a' }}
+        _hover={{ textDecoration: 'none', color: 'brand.ink' }}
       >
         FLOW MOTORS
       </Text>
 
-      <HStack spacing={16} fontSize="xs" fontWeight="bold" letterSpacing="widest" color="gray.500" fontFamily="var(--font-inter)">
+      <HStack gap={16} fontSize="xs" fontWeight="bold" letterSpacing="widest" color="gray.500" fontFamily="var(--font-inter)">
 
         <Link 
           href="#" 
           position="relative"
-          _after={{ content: '""', position: 'absolute', width: '0', height: '1px', bottom: '-4px', left: '0', bg: '#1a1a1a', transition: 'width 0.3s ease' }}
-          _hover={{ _after: { width: '100%' }, color: '#1a1a1a', textDecoration: 'none' }}
+          _after={{ content: '""', position: 'absolute', width: '0', height: '1px', bottom: '-4px', left: '0', bg: 'brand.ink', transition: 'width 0.3s ease' }}
+          _hover={{ _after: { width: '100%' }, color: 'brand.ink', textDecoration: 'none' }}
         >
           SERVIÇOS
         </Link>
         <Link 
           href="#" 
           position="relative"
-          _after={{ content: '""', position: 'absolute', width: '0', height: '1px', bottom: '-4px', left: '0', bg: '#1a1a1a', transition: 'width 0.3s ease' }}
-          _hover={{ _after: { width: '100%' }, color: '#1a1a1a', textDecoration: 'none' }}
+          _after={{ content: '""', position: 'absolute', width: '0', height: '1px', bottom: '-4px', left: '0', bg: 'brand.ink', transition: 'width 0.3s ease' }}
+          _hover={{ _after: { width: '100%' }, color: 'brand.ink', textDecoration: 'none' }}
         >
           SOBRE
         </Link>
@@ -53,8 +53,8 @@ export function Header() {
           as={NextLink}
           href="/contato" 
           position="relative"
-          _after={{ content: '""', position: 'absolute', width: '0', height: '1px', bottom: '-4px', left: '0', bg: '#1a1a1a', transition: 'width 0.3s ease' }}
-          _hover={{ _after: { width: '100%' }, color: '#1a1a1a', textDecoration: 'none' }}
+          _after={{ content: '""', position: 'absolute', width: '0', height: '1px', bottom: '-4px', left: '0', bg: 'brand.ink', transition: 'width 0.3s ease' }}
+          _hover={{ _after: { width: '100%' }, color: 'brand.ink', textDecoration: 'none' }}
         >
           CONTATO
         </Link>
@@ -63,7 +63,7 @@ export function Header() {
       <Button
         as={NextLink}
         href="/login"
-        bg="#112a21"
+        bg="brand.green"
         color="white"
         borderRadius="none"
         px={8}
@@ -74,7 +74,7 @@ export function Header() {
         letterSpacing="widest"
         transition="all 0.3s"
         _hover={{ 
-          bg: '#1a3e31',
+          bg: 'brand.greenHover',
           transform: 'translateY(-1px)',
           boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
         }}

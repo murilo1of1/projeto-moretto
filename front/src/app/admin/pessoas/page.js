@@ -96,7 +96,7 @@ export default function AdminPessoasPage() {
     <>
       <AdminHeader />
 
-      <Box minH="100vh" bg="#f9f7f2" pt="85px">
+      <Box minH="100vh" bg="brand.cream" pt="85px">
         <Box px={{ base: 6, lg: 14 }} py={{ base: 10, lg: 14 }}>
           <Flex
             justify="space-between"
@@ -106,7 +106,7 @@ export default function AdminPessoasPage() {
             mb={8}
           >
             <Box>
-              <Text fontSize="xs" fontWeight="bold" letterSpacing="widest" color="#7a6242" mb={4}>
+              <Text fontSize="xs" fontWeight="bold" letterSpacing="widest" color="brand.muted" mb={4}>
                 ADMINISTRAÇÃO
               </Text>
 
@@ -114,7 +114,7 @@ export default function AdminPessoasPage() {
                 fontFamily="var(--font-cormorant-garamond)"
                 fontSize={{ base: '5xl', lg: '7xl' }}
                 lineHeight="0.95"
-                color="#1a1a1a"
+                color="brand.ink"
                 mb={4}
               >
                 Pessoas
@@ -124,7 +124,7 @@ export default function AdminPessoasPage() {
                 fontFamily="var(--font-cormorant-garamond)"
                 fontStyle="italic"
                 fontSize={{ base: 'lg', lg: 'xl' }}
-                color="#4c3b29"
+                color="brand.subtle"
               >
                 Consulte clientes e administradores cadastrados.
               </Text>
@@ -133,7 +133,7 @@ export default function AdminPessoasPage() {
             <Button
               as={NextLink}
               href="/admin/pessoas/novo"
-              bg="#112a21"
+              bg="brand.green"
               color="white"
               borderRadius="none"
               h="48px"
@@ -141,7 +141,7 @@ export default function AdminPessoasPage() {
               fontSize="xs"
               fontWeight="bold"
               letterSpacing="widest"
-              _hover={{ bg: '#1a3e31' }}
+              _hover={{ bg: 'brand.greenHover' }}
             >
               NOVA PESSOA
             </Button>
@@ -156,7 +156,7 @@ export default function AdminPessoasPage() {
               border="none"
               borderBottom="1px solid #c8c0ad"
               borderRadius="none"
-              _focus={{ boxShadow: 'none', borderBottomColor: '#0f2b1d' }}
+              _focus={{ boxShadow: 'none', borderBottomColor: 'brand.accent' }}
             />
 
             <HStack gap={2} wrap="wrap">
@@ -167,9 +167,11 @@ export default function AdminPessoasPage() {
               ].map(({ label, value }) => (
                 <Button
                   key={value}
-                  bg={tipo === value ? '#112a21' : 'transparent'}
-                  color={tipo === value ? 'white' : '#112a21'}
-                  border="1px solid #112a21"
+                  bg={tipo === value ? 'brand.green' : 'transparent'}
+                  color={tipo === value ? 'white' : 'brand.green'}
+                  borderWidth="1px"
+                  borderStyle="solid"
+                  borderColor="brand.green"
                   borderRadius="none"
                   h="38px"
                   px={5}
@@ -177,7 +179,7 @@ export default function AdminPessoasPage() {
                   fontWeight="bold"
                   letterSpacing="widest"
                   onClick={() => setTipo(value)}
-                  _hover={{ bg: '#112a21', color: 'white' }}
+                  _hover={{ bg: 'brand.green', color: 'white' }}
                 >
                   {label}
                 </Button>
@@ -185,11 +187,11 @@ export default function AdminPessoasPage() {
             </HStack>
           </Flex>
 
-          <Box h="1px" bg="#9c8b6e" mb={8} />
+          <Box h="1px" bg="brand.divider" mb={8} />
 
           {carregando ? (
             <Flex py={20} justify="center">
-              <Spinner color="#0f2b1d" size="xl" />
+              <Spinner color="brand.accent" size="xl" />
             </Flex>
           ) : (
             <SimpleGrid columns={{ base: 1, md: 2, xl: 3 }} gap={6}>
@@ -215,19 +217,19 @@ function PessoaCard({ pessoa, onExcluir }) {
   const tipoLabel = pessoa.tipoPessoa === 2 ? 'ADMIN' : 'CLIENTE';
 
   return (
-    <Box bg="#fdfaf3" border="1px solid #d6c7aa" p={6}>
+    <Box bg="brand.card" border="1px solid #d6c7aa" p={6}>
       <Flex justify="space-between" align="flex-start" gap={4} mb={4}>
-        <Heading fontFamily="var(--font-cormorant-garamond)" fontSize="3xl" color="#1a1a1a">
+        <Heading fontFamily="var(--font-cormorant-garamond)" fontSize="3xl" color="brand.ink">
           {pessoa.nome}
         </Heading>
 
-        <Badge bg={pessoa.tipoPessoa === 2 ? '#112a21' : '#7a6242'} color="white" borderRadius="none">
+        <Badge bg={pessoa.tipoPessoa === 2 ? 'brand.green' : 'brand.muted'} color="white" borderRadius="none">
           {tipoLabel}
         </Badge>
       </Flex>
 
-      <Text color="#4c3b29" mb={2}>{pessoa.email}</Text>
-      <Text color="#7a6242" fontSize="sm" mb={6}>{pessoa.telefone || 'Telefone não informado'}</Text>
+      <Text color="brand.subtle" mb={2}>{pessoa.email}</Text>
+      <Text color="brand.muted" fontSize="sm" mb={6}>{pessoa.telefone || 'Telefone não informado'}</Text>
 
       {!confirmando ? (
         <Flex gap={3}>
@@ -235,11 +237,11 @@ function PessoaCard({ pessoa, onExcluir }) {
             as={NextLink}
             href={`/admin/pessoas/${pessoa.id}`}
             variant="outline"
-            borderColor="#112a21"
-            color="#112a21"
+            borderColor="brand.green"
+            color="brand.green"
             borderRadius="none"
             size="sm"
-            _hover={{ bg: '#112a21', color: 'white' }}
+            _hover={{ bg: 'brand.green', color: 'white' }}
           >
             EDITAR
           </Button>
@@ -247,23 +249,23 @@ function PessoaCard({ pessoa, onExcluir }) {
           <Button
             onClick={() => setConfirmando(true)}
             variant="outline"
-            borderColor="#7a1f1f"
-            color="#7a1f1f"
+            borderColor="brand.danger"
+            color="brand.danger"
             borderRadius="none"
             size="sm"
-            _hover={{ bg: '#7a1f1f', color: 'white' }}
+            _hover={{ bg: 'brand.danger', color: 'white' }}
           >
             EXCLUIR
           </Button>
         </Flex>
       ) : (
         <Flex gap={3} align="center">
-          <Text fontSize="xs" color="#7a1f1f" fontWeight="bold" flex={1}>
+          <Text fontSize="xs" color="brand.danger" fontWeight="bold" flex={1}>
             Confirmar exclusão?
           </Text>
           <Button
             onClick={() => { onExcluir(pessoa); setConfirmando(false); }}
-            bg="#7a1f1f"
+            bg="brand.danger"
             color="white"
             borderRadius="none"
             size="sm"
@@ -273,8 +275,8 @@ function PessoaCard({ pessoa, onExcluir }) {
           <Button
             onClick={() => setConfirmando(false)}
             variant="outline"
-            borderColor="#1a1a1a"
-            color="#1a1a1a"
+            borderColor="brand.ink"
+            color="brand.ink"
             borderRadius="none"
             size="sm"
           >

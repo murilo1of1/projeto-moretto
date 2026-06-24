@@ -131,7 +131,7 @@ export default function EditPessoaAdminPage({ params }) {
     <>
       <AdminHeader />
 
-      <Box minH="100vh" bg="#f9f7f2" pt="85px">
+      <Box minH="100vh" bg="brand.cream" pt="85px">
         <Box px={{ base: 6, lg: 14 }} py={{ base: 10, lg: 14 }}>
           <Flex
             justify="space-between"
@@ -141,7 +141,7 @@ export default function EditPessoaAdminPage({ params }) {
             mb={8}
           >
             <Box>
-              <Text fontSize="xs" fontWeight="bold" letterSpacing="widest" color="#7a6242" mb={4}>
+              <Text fontSize="xs" fontWeight="bold" letterSpacing="widest" color="brand.muted" mb={4}>
                 EDITAR PESSOA
               </Text>
 
@@ -149,7 +149,7 @@ export default function EditPessoaAdminPage({ params }) {
                 fontFamily="var(--font-cormorant-garamond)"
                 fontSize={{ base: '5xl', lg: '7xl' }}
                 lineHeight="0.95"
-                color="#1a1a1a"
+                color="brand.ink"
                 mb={4}
               >
                 Atualizar cadastro
@@ -159,14 +159,14 @@ export default function EditPessoaAdminPage({ params }) {
                 fontFamily="var(--font-cormorant-garamond)"
                 fontStyle="italic"
                 fontSize={{ base: 'lg', lg: 'xl' }}
-                color="#4c3b29"
+                color="brand.subtle"
               >
                 Edite os dados de login ou acesso do usuário.
               </Text>
             </Box>
 
             <Badge
-              bg="#112a21"
+              bg="brand.green"
               color="white"
               borderRadius="none"
               px={4}
@@ -180,7 +180,7 @@ export default function EditPessoaAdminPage({ params }) {
 
           {carregando ? (
             <Flex py={20} justify="center">
-              <Spinner color="#0f2b1d" size="xl" />
+              <Spinner color="brand.accent" size="xl" />
             </Flex>
           ) : (
             <Grid templateColumns={{ base: '1fr', lg: '1.1fr 0.9fr' }} gap={{ base: 8, lg: 12 }}>
@@ -196,7 +196,7 @@ export default function EditPessoaAdminPage({ params }) {
                     bg="transparent"
                     h="44px"
                     px={0}
-                    _focus={{ boxShadow: 'none', borderBottomColor: '#0f2b1d' }}
+                    _focus={{ boxShadow: 'none', borderBottomColor: 'brand.accent' }}
                   />
                 </FormField>
 
@@ -212,7 +212,7 @@ export default function EditPessoaAdminPage({ params }) {
                     bg="transparent"
                     h="44px"
                     px={0}
-                    _focus={{ boxShadow: 'none', borderBottomColor: '#0f2b1d' }}
+                    _focus={{ boxShadow: 'none', borderBottomColor: 'brand.accent' }}
                   />
                 </FormField>
 
@@ -227,7 +227,7 @@ export default function EditPessoaAdminPage({ params }) {
                     bg="transparent"
                     h="44px"
                     px={0}
-                    _focus={{ boxShadow: 'none', borderBottomColor: '#0f2b1d' }}
+                    _focus={{ boxShadow: 'none', borderBottomColor: 'brand.accent' }}
                   />
                 </FormField>
 
@@ -242,7 +242,7 @@ export default function EditPessoaAdminPage({ params }) {
                       bg="transparent"
                       h="44px"
                       px={0}
-                      _focus={{ boxShadow: 'none', borderBottomColor: '#0f2b1d' }}
+                      _focus={{ boxShadow: 'none', borderBottomColor: 'brand.accent' }}
                     >
                       <option value={1}>Cliente</option>
                       <option value={2}>Administrador</option>
@@ -262,7 +262,7 @@ export default function EditPessoaAdminPage({ params }) {
                     bg="transparent"
                     h="44px"
                     px={0}
-                    _focus={{ boxShadow: 'none', borderBottomColor: '#0f2b1d' }}
+                    _focus={{ boxShadow: 'none', borderBottomColor: 'brand.accent' }}
                   />
                 </FormField>
 
@@ -271,22 +271,22 @@ export default function EditPessoaAdminPage({ params }) {
                     as={NextLink}
                     href="/admin/pessoas"
                     variant="outline"
-                    borderColor="#112a21"
-                    color="#112a21"
+                    borderColor="brand.green"
+                    color="brand.green"
                     borderRadius="none"
                     h="52px"
                     flex={1}
                     fontSize="xs"
                     fontWeight="bold"
                     letterSpacing="widest"
-                    _hover={{ bg: '#112a21', color: 'white' }}
+                    _hover={{ bg: 'brand.green', color: 'white' }}
                   >
                     VOLTAR
                   </Button>
                   <Button
                     onClick={handleSalvar}
                     loading={salvando}
-                    bg="#112a21"
+                    bg="brand.green"
                     color="white"
                     borderRadius="none"
                     h="52px"
@@ -294,7 +294,7 @@ export default function EditPessoaAdminPage({ params }) {
                     fontSize="xs"
                     fontWeight="bold"
                     letterSpacing="widest"
-                    _hover={{ bg: '#1a3e31' }}
+                    _hover={{ bg: 'brand.greenHover' }}
                   >
                     SALVAR ALTERAÇÕES
                   </Button>
@@ -302,13 +302,13 @@ export default function EditPessoaAdminPage({ params }) {
               </Box>
 
               <Box borderLeft={{ base: 'none', lg: '1px solid #d6c7aa' }} pl={{ base: 0, lg: 10 }}>
-                <Text fontSize="10px" fontWeight="bold" letterSpacing="widest" color="#7a6242" mb={4}>
+                <Text fontSize="10px" fontWeight="bold" letterSpacing="widest" color="brand.muted" mb={4}>
                   INFORMAÇÕES
                 </Text>
-                <Text color="#4c3b29" lineHeight="1.8" mb={5}>
+                <Text color="brand.subtle" lineHeight="1.8" mb={5}>
                   Atualize o perfil do usuário. A senha só será alterada se você preencher este campo.
                 </Text>
-                <Text color="#4c3b29" lineHeight="1.8">
+                <Text color="brand.subtle" lineHeight="1.8">
                   Administradores têm acesso total ao painel e aos recursos de gestão.
                 </Text>
               </Box>

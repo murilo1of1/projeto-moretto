@@ -39,7 +39,7 @@ export default function AdminPage() {
     <>
       <AdminHeader />
 
-      <Box minH="100vh" bg="#f9f7f2" pt="85px">
+      <Box minH="100vh" bg="brand.cream" pt="85px">
         <Box px={{ base: 6, lg: 14 }} py={{ base: 10, lg: 14 }}>
           <Flex
             justify="space-between"
@@ -49,7 +49,7 @@ export default function AdminPage() {
             mb={10}
           >
             <Box>
-              <Text fontSize="xs" fontWeight="bold" letterSpacing="widest" color="#7a6242" mb={4}>
+              <Text fontSize="xs" fontWeight="bold" letterSpacing="widest" color="brand.muted" mb={4}>
                 PAINEL ADMINISTRATIVO
               </Text>
 
@@ -57,7 +57,7 @@ export default function AdminPage() {
                 fontFamily="var(--font-cormorant-garamond)"
                 fontSize={{ base: '5xl', lg: '7xl' }}
                 lineHeight="0.95"
-                color="#1a1a1a"
+                color="brand.ink"
                 mb={4}
               >
                 Gestão Flow Motors
@@ -67,14 +67,14 @@ export default function AdminPage() {
                 fontFamily="var(--font-cormorant-garamond)"
                 fontStyle="italic"
                 fontSize={{ base: 'lg', lg: 'xl' }}
-                color="#4c3b29"
+                color="brand.subtle"
               >
                 Cadastre, acompanhe e organize a operação da concessionária.
               </Text>
             </Box>
 
             <Badge
-              bg="#112a21"
+              bg="brand.green"
               color="white"
               borderRadius="none"
               px={4}
@@ -132,7 +132,7 @@ export default function AdminPage() {
 function AdminCard({ titulo, texto, href }) {
   return (
     <Box
-      bg="#fdfaf3"
+      bg="brand.card"
       border="1px solid #d6c7aa"
       p={7}
       minH="220px"
@@ -145,13 +145,13 @@ function AdminCard({ titulo, texto, href }) {
           fontFamily="var(--font-cormorant-garamond)"
           fontSize="3xl"
           fontWeight="600"
-          color="#1a1a1a"
+          color="brand.ink"
           mb={3}
         >
           {titulo}
         </Heading>
 
-        <Text color="#4c3b29" lineHeight="1.7">
+        <Text color="brand.subtle" lineHeight="1.7">
           {texto}
         </Text>
       </Box>
@@ -160,15 +160,15 @@ function AdminCard({ titulo, texto, href }) {
         as={NextLink}
         href={href}
         variant="outline"
-        borderColor="#112a21"
-        color="#112a21"
+        borderColor="brand.green"
+        color="brand.green"
         borderRadius="none"
         h="44px"
         mt={6}
         fontSize="xs"
         fontWeight="bold"
         letterSpacing="widest"
-        _hover={{ bg: '#112a21', color: 'white' }}
+        _hover={{ bg: 'brand.green', color: 'white' }}
       >
         ACESSAR
       </Button>

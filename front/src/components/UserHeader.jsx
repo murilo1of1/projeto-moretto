@@ -17,7 +17,7 @@ export function UserHeader() {
       as="header"
       w="100%"
       h="85px"
-      bg="#f9f7f2"
+      bg="brand.cream"
       align="center"
       justify="space-between"
       px={{ base: 6, lg: 12 }}
@@ -33,38 +33,38 @@ export function UserHeader() {
         fontSize={{ base: '2xl', md: '3xl' }}
         fontWeight="600"
         letterSpacing="widest"
-        color="#1a1a1a"
+        color="brand.ink"
         textDecoration="none"
-        _hover={{ textDecoration: 'none', color: '#1a1a1a' }}
+        _hover={{ textDecoration: 'none', color: 'brand.ink' }}
       >
         FLOW MOTORS
       </Text>
 
       <HStack gap={{ base: 4, lg: 10 }} fontSize="xs" fontWeight="bold" letterSpacing="widest" color="#6f6658">
-        <Link as={NextLink} href="/home" _hover={{ color: '#112a21', textDecoration: 'none' }}>
+        <Link as={NextLink} href="/home" _hover={{ color: 'brand.green', textDecoration: 'none' }}>
           CATALOGO
         </Link>
 
-        <Link as={NextLink} href="/minha-area" _hover={{ color: '#112a21', textDecoration: 'none' }}>
+        <Link as={NextLink} href="/minha-area" _hover={{ color: 'brand.green', textDecoration: 'none' }}>
           MINHA AREA
         </Link>
 
-        <Link as={NextLink} href="/test-drive" _hover={{ color: '#112a21', textDecoration: 'none' }}>
+        <Link as={NextLink} href="/test-drive" _hover={{ color: 'brand.green', textDecoration: 'none' }}>
           TEST DRIVE
         </Link>
 
         <Button
           onClick={handleLogout}
           variant="outline"
-          borderColor="#112a21"
-          color="#112a21"
+          borderColor="brand.green"
+          color="brand.green"
           borderRadius="none"
           h="40px"
           px={{ base: 4, md: 6 }}
           fontSize="xs"
           fontWeight="bold"
           letterSpacing="widest"
-          _hover={{ bg: '#112a21', color: 'white' }}
+          _hover={{ bg: 'brand.green', color: 'white' }}
         >
           SAIR
         </Button>

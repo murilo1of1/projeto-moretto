@@ -47,7 +47,7 @@ export default function LoginPage() {
       <Box
         w={{ base: '100%', lg: '63%' }}
         minH={{ base: '40vh', lg: '100vh' }}
-        bg="#0a1f15"
+        bg="brand.deep"
         position="relative"
         display="flex"
         flexDirection="column"
@@ -93,7 +93,7 @@ export default function LoginPage() {
       <Flex
         w={{ base: '100%', lg: '37%' }}
         minH={{ base: 'auto', lg: '100vh' }}
-        bg="#f9f7f2"
+        bg="brand.cream"
         flexDirection="column"
         justify="space-between"
         px={{ base: 8, lg: 10 }}
@@ -104,7 +104,7 @@ export default function LoginPage() {
           fontSize="xl"
           fontWeight="600"
           letterSpacing="widest"
-          color="#1a1a1a"
+          color="brand.ink"
           mb={12}
         >
           FLOW MOTORS
@@ -116,7 +116,7 @@ export default function LoginPage() {
             fontFamily="var(--font-cormorant-garamond)"
             fontSize={{ base: '4xl', lg: '5xl' }}
             fontWeight="500"
-            color="#1a1a1a"
+            color="brand.ink"
             mb={3}
           >
             Entrar

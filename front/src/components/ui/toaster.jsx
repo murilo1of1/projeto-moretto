@@ -14,7 +14,7 @@ export function Toaster() {
         {(toast) => (
           <Toast.Root
             width={{ md: '380px' }}
-            bg="#1a1a1a"
+            bg="brand.ink"
             color="white"
             borderRadius="none"
             border="1px solid rgba(255,255,255,0.1)"

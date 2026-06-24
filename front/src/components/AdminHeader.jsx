@@ -17,7 +17,7 @@ export function AdminHeader() {
       as="header"
       w="100%"
       h="85px"
-      bg="#0a1f15"
+      bg="brand.deep"
       align="center"
       justify="space-between"
       px={{ base: 6, lg: 12 }}
@@ -59,15 +59,15 @@ export function AdminHeader() {
 
         <Button
           onClick={handleLogout}
-          bg="#f9f7f2"
-          color="#112a21"
+          bg="brand.cream"
+          color="brand.green"
           borderRadius="none"
           h="40px"
           px={{ base: 4, md: 6 }}
           fontSize="xs"
           fontWeight="bold"
           letterSpacing="widest"
-          _hover={{ bg: '#e7dfcf' }}
+          _hover={{ bg: 'brand.pill' }}
         >
           SAIR
         </Button>

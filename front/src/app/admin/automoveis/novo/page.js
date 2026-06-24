@@ -177,14 +177,14 @@ export default function NovoAutomovelPage() {
     <>
       <AdminHeader />
 
-      <Flex minH="100vh" bg="#f9f7f2" align="center" justify="center" px={8} pt="85px">
+      <Flex minH="100vh" bg="brand.cream" align="center" justify="center" px={8} pt="85px">
       <Box w="100%" maxW="520px">
         <Heading
           as="h1"
           fontFamily="var(--font-cormorant-garamond)"
           fontSize="5xl"
           fontWeight="500"
-          color="#1a1a1a"
+          color="brand.ink"
           mb={3}
         >
           Novo Automóvel
@@ -199,7 +199,7 @@ export default function NovoAutomovelPage() {
           Cadastre um veículo clássico no acervo da concessionária.
         </Text>
 
-        <Stack spacing={6}>
+        <Stack gap={6}>
           <FormField label="Placa">
             <Input
               placeholder="ABC1234"
@@ -207,7 +207,7 @@ export default function NovoAutomovelPage() {
               onChange={(e) => setPlaca(e.target.value)}
               borderRadius="none"
               border="1px solid #c8c0ad"
-              _focus={{ boxShadow: 'none', borderColor: '#0f2b1d' }}
+              _focus={{ boxShadow: 'none', borderColor: 'brand.accent' }}
             />
           </FormField>
 
@@ -218,7 +218,7 @@ export default function NovoAutomovelPage() {
               onChange={(e) => setMarca(e.target.value)}
               borderRadius="none"
               border="1px solid #c8c0ad"
-              _focus={{ boxShadow: 'none', borderColor: '#0f2b1d' }}
+              _focus={{ boxShadow: 'none', borderColor: 'brand.accent' }}
             />
           </FormField>
 
@@ -229,7 +229,7 @@ export default function NovoAutomovelPage() {
               onChange={(e) => setModelo(e.target.value)}
               borderRadius="none"
               border="1px solid #c8c0ad"
-              _focus={{ boxShadow: 'none', borderColor: '#0f2b1d' }}
+              _focus={{ boxShadow: 'none', borderColor: 'brand.accent' }}
             />
           </FormField>
 
@@ -241,7 +241,7 @@ export default function NovoAutomovelPage() {
               onChange={(e) => setAno(e.target.value)}
               borderRadius="none"
               border="1px solid #c8c0ad"
-              _focus={{ boxShadow: 'none', borderColor: '#0f2b1d' }}
+              _focus={{ boxShadow: 'none', borderColor: 'brand.accent' }}
             />
           </FormField>
 
@@ -252,7 +252,7 @@ export default function NovoAutomovelPage() {
               onChange={(e) => setCor(e.target.value)}
               borderRadius="none"
               border="1px solid #c8c0ad"
-              _focus={{ boxShadow: 'none', borderColor: '#0f2b1d' }}
+              _focus={{ boxShadow: 'none', borderColor: 'brand.accent' }}
             />
           </FormField>
 
@@ -269,13 +269,13 @@ export default function NovoAutomovelPage() {
                 border="2px dashed #c8c0ad"
                 borderRadius="4px"
                 p={6}
-                _hover={{ borderColor: '#0f2b1d', bg: '#f5f2eb' }}
+                _hover={{ borderColor: 'brand.accent', bg: 'brand.creamHover' }}
               >
                 <Flex direction="column" align="center" justify="center" gap={2}>
-                  <Text fontSize="sm" color="#4c3b29" fontWeight="500">
+                  <Text fontSize="sm" color="brand.subtle" fontWeight="500">
                     Arraste imagens aqui ou clique para selecionar
                   </Text>
-                  <Text fontSize="xs" color="#7a6242">
+                  <Text fontSize="xs" color="brand.muted">
                     .png, .jpg até 10 fotos
                   </Text>
                 </Flex>
@@ -285,16 +285,16 @@ export default function NovoAutomovelPage() {
 
             {imagens.length > 0 && (
               <Box mt={4}>
-                <Text fontSize="sm" fontWeight="bold" color="#2d241b" mb={3}>
+                <Text fontSize="sm" fontWeight="bold" color="brand.subtleStrong" mb={3}>
                   Fotos selecionadas ({imagens.length}/10):
                 </Text>
-                <Stack spacing={2}>
+                <Stack gap={2}>
                   {imagens.map((imagem, index) => (
                     <Flex
                       key={index}
                       justify="space-between"
                       align="center"
-                      bg="#fdfaf3"
+                      bg="brand.card"
                       p={3}
                       border="1px solid #d6c7aa"
                     >
@@ -311,10 +311,10 @@ export default function NovoAutomovelPage() {
                           />
                         )}
                         <Box>
-                          <Text fontSize="sm" fontWeight="500" color="#1a1a1a" noOfLines={1}>
+                          <Text fontSize="sm" fontWeight="500" color="brand.ink" noOfLines={1}>
                             {imagem.name || `Foto ${index + 1}`}
                           </Text>
-                          <Text fontSize="xs" color="#7a6242">
+                          <Text fontSize="xs" color="brand.muted">
                             {imagem.size && `${(imagem.size / 1024).toFixed(2)} KB`}
                           </Text>
                         </Box>
@@ -322,9 +322,9 @@ export default function NovoAutomovelPage() {
                       <Button
                         size="sm"
                         variant="ghost"
-                        color="#7a1f1f"
+                        color="brand.danger"
                         onClick={() => removerImagem(index)}
-                        _hover={{ bg: '#fce9e9' }}
+                        _hover={{ bg: 'brand.dangerHover' }}
                       >
                         Remover
                       </Button>
@@ -338,7 +338,7 @@ export default function NovoAutomovelPage() {
           <Flex gap={4} direction={{ base: 'column', md: 'row' }}>
             <Button
               flex={1}
-              bg="#0f2b1d"
+              bg="brand.accent"
               color="white"
               borderRadius="none"
               h="56px"
@@ -347,7 +347,7 @@ export default function NovoAutomovelPage() {
               letterSpacing="widest"
               loading={isSubmitting}
               onClick={handleSubmit}
-              _hover={{ bg: '#235a40' }}
+              _hover={{ bg: 'brand.accentHover' }}
             >
               CADASTRAR AUTOMÓVEL
             </Button>
@@ -357,14 +357,14 @@ export default function NovoAutomovelPage() {
               href="/admin/automoveis"
               flex={1}
               variant="outline"
-              borderColor="#112a21"
-              color="#112a21"
+              borderColor="brand.green"
+              color="brand.green"
               borderRadius="none"
               h="56px"
               fontSize="xs"
               fontWeight="bold"
               letterSpacing="widest"
-              _hover={{ bg: '#112a21', color: 'white' }}
+              _hover={{ bg: 'brand.green', color: 'white' }}
             >
               CANCELAR
             </Button>

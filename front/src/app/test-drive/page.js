@@ -137,7 +137,7 @@ export default function TestDrivePage() {
 
       <Box
         minH="100vh"
-        bg="#f9f7f2"
+        bg="brand.cream"
         px={{ base: 6, lg: 14 }}
         pt={{ base: '125px', lg: '141px' }}
         pb={{ base: 10, lg: 14 }}
@@ -151,15 +151,15 @@ export default function TestDrivePage() {
               as={NextLink}
               href="/home"
               variant="outline"
-              borderColor="#112a21"
-              color="#112a21"
+              borderColor="brand.green"
+              color="brand.green"
               borderRadius="none"
               h="46px"
               px={7}
               fontSize="xs"
               fontWeight="bold"
               letterSpacing="widest"
-              _hover={{ bg: '#112a21', color: 'white' }}
+              _hover={{ bg: 'brand.green', color: 'white' }}
             >
               VER CATALOGO
             </Button>
@@ -167,13 +167,13 @@ export default function TestDrivePage() {
         >
           {carregando ? (
             <Flex py={16} justify="center">
-              <Spinner color="#0f2b1d" size="xl" />
+              <Spinner color="brand.accent" size="xl" />
             </Flex>
           ) : (
             <Grid templateColumns={{ base: '1fr', lg: '1.05fr 0.95fr' }} gap={{ base: 8, lg: 12 }}>
               <Box>
                 <Box mb={7}>
-                  <Text fontSize="10px" fontWeight="bold" letterSpacing="widest" color="#7a6242" mb={3}>
+                  <Text fontSize="10px" fontWeight="bold" letterSpacing="widest" color="brand.muted" mb={3}>
                     SELECIONE O AUTOMÓVEL
                   </Text>
 
@@ -181,23 +181,25 @@ export default function TestDrivePage() {
                     {automoveis.map((auto) => (
                       <Box
                         key={auto.id}
-                        border={automovelId === String(auto.id) ? '2px solid #112a21' : '1px solid #d6c7aa'}
-                        bg="#fdfaf3"
+                        borderWidth={automovelId === String(auto.id) ? '2px' : '1px'}
+                        borderStyle="solid"
+                        borderColor={automovelId === String(auto.id) ? 'brand.green' : 'brand.line'}
+                        bg="brand.card"
                         cursor="pointer"
                         onClick={() => setAutomovelId(String(auto.id))}
                         overflow="hidden"
-                        _hover={{ borderColor: '#112a21' }}
+                        _hover={{ borderColor: 'brand.green' }}
                         transition="border-color 0.15s"
                       >
                         <CarColorBand cor={auto.cor} marca={auto.marca} height="60px" />
                         <Box p={3}>
-                          <Text fontSize="8px" fontWeight="700" letterSpacing="2px" color="#7a6242">
+                          <Text fontSize="8px" fontWeight="700" letterSpacing="2px" color="brand.muted">
                             {auto.marca}
                           </Text>
                           <Text fontFamily="var(--font-cormorant-garamond)" fontSize="lg" fontWeight="600" lineHeight="1.2">
                             {auto.modelo}
                           </Text>
-                          <Text fontSize="11px" color="#9c8b6e" mt={1}>
+                          <Text fontSize="11px" color="brand.divider" mt={1}>
                             {auto.ano} · {auto.cor}
                           </Text>
                         </Box>
@@ -217,26 +219,26 @@ export default function TestDrivePage() {
                     bg="transparent"
                     h="44px"
                     px={0}
-                    _focus={{ boxShadow: 'none', borderBottomColor: '#0f2b1d' }}
+                    _focus={{ boxShadow: 'none', borderBottomColor: 'brand.accent' }}
                   />
                 </FormField>
 
                 <Box borderTop="1px solid #d6c7aa" pt={6}>
-                  <Text fontSize="10px" fontWeight="bold" letterSpacing="widest" color="#7a6242" mb={3}>
+                  <Text fontSize="10px" fontWeight="bold" letterSpacing="widest" color="brand.muted" mb={3}>
                     AGENDADO PARA
                   </Text>
 
-                  <Heading fontFamily="var(--font-cormorant-garamond)" fontSize="3xl" color="#1a1a1a" mb={2}>
+                  <Heading fontFamily="var(--font-cormorant-garamond)" fontSize="3xl" color="brand.ink" mb={2}>
                     {usuario?.nome || 'Usuario logado'}
                   </Heading>
 
-                  <Text color="#4c3b29">{usuario?.email}</Text>
+                  <Text color="brand.subtle">{usuario?.email}</Text>
                 </Box>
 
                 <Button
                   onClick={handleSubmit}
                   loading={enviando}
-                  bg="#112a21"
+                  bg="brand.green"
                   color="white"
                   borderRadius="none"
                   h="54px"
@@ -245,24 +247,24 @@ export default function TestDrivePage() {
                   fontSize="xs"
                   fontWeight="bold"
                   letterSpacing="widest"
-                  _hover={{ bg: '#1a3e31' }}
+                  _hover={{ bg: 'brand.greenHover' }}
                 >
                   CONFIRMAR TEST DRIVE
                 </Button>
               </Box>
 
               <Box borderLeft={{ base: 'none', lg: '1px solid #d6c7aa' }} pl={{ base: 0, lg: 10 }}>
-                <Text fontSize="10px" fontWeight="bold" letterSpacing="widest" color="#7a6242" mb={4}>
+                <Text fontSize="10px" fontWeight="bold" letterSpacing="widest" color="brand.muted" mb={4}>
                   RESUMO DO AUTOMOVEL
                 </Text>
 
                 {automovelSelecionado ? (
                   <Box>
-                    <Badge bg="#112a21" color="white" borderRadius="none" px={3} py={1} mb={5}>
+                    <Badge bg="brand.green" color="white" borderRadius="none" px={3} py={1} mb={5}>
                       {automovelSelecionado.placa}
                     </Badge>
 
-                    <Heading fontFamily="var(--font-cormorant-garamond)" fontSize="4xl" color="#1a1a1a" mb={4}>
+                    <Heading fontFamily="var(--font-cormorant-garamond)" fontSize="4xl" color="brand.ink" mb={4}>
                       {automovelSelecionado.marca} {automovelSelecionado.modelo}
                     </Heading>
 
@@ -272,7 +274,7 @@ export default function TestDrivePage() {
                     </SimpleGrid>
                   </Box>
                 ) : (
-                  <Text color="#4c3b29" lineHeight="1.8">
+                  <Text color="brand.subtle" lineHeight="1.8">
                     Selecione um automovel para revisar os detalhes antes de confirmar o agendamento.
                   </Text>
                 )}
@@ -321,10 +323,10 @@ function CarColorBand({ cor, marca, height = '60px' }) {
 function ResumoItem({ label, value }) {
   return (
     <Box>
-      <Text fontSize="10px" fontWeight="bold" letterSpacing="widest" color="#7a6242" mb={1}>
+      <Text fontSize="10px" fontWeight="bold" letterSpacing="widest" color="brand.muted" mb={1}>
         {label}
       </Text>
-      <Text fontFamily="var(--font-cormorant-garamond)" fontSize="2xl" color="#1a1a1a">
+      <Text fontFamily="var(--font-cormorant-garamond)" fontSize="2xl" color="brand.ink">
         {value || '-'}
       </Text>
     </Box>

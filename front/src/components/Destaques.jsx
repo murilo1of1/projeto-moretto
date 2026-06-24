@@ -11,7 +11,7 @@ export function Destaques() {
             fontFamily="var(--font-cormorant-garamond)"
             fontWeight="500"
             mb={3}
-            color="#1a1a1a"
+            color="brand.ink"
           >
             Acervo em Destaque
           </Heading>
@@ -64,7 +64,7 @@ export function Destaques() {
             left={0}
             p={8}
             color="white"
-            bgGradient="linear(to-t, blackAlpha.900, blackAlpha.600, transparent)"
+            bgImage="linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0.55), transparent)"
             w="full"
             h="50%"
             display="flex"
@@ -102,7 +102,7 @@ export function Destaques() {
             left={0}
             p={8}
             color="white"
-            bgGradient="linear(to-t, blackAlpha.900, blackAlpha.600, transparent)"
+            bgImage="linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0.55), transparent)"
             w="full"
             h="60%"
             display="flex"
@@ -140,7 +140,7 @@ export function Destaques() {
             left={0}
             p={8}
             color="white"
-            bgGradient="linear(to-t, blackAlpha.900, blackAlpha.600, transparent)"
+            bgImage="linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0.55), transparent)"
             w="full"
             h="60%"
             display="flex"
@@ -175,7 +175,7 @@ export function Destaques() {
             fontFamily="var(--font-cormorant-garamond)"
             fontWeight="600"
             mb={4}
-            color="#1a1a1a"
+            color="brand.ink"
           >
             Garantia de Procedência
           </Heading>
@@ -196,8 +196,8 @@ export function Destaques() {
             letterSpacing="widest"
             display="flex"
             alignItems="center"
-            color="#1a1a1a"
-            _hover={{ color: '#235a40', textDecoration: 'none' }}
+            color="brand.ink"
+            _hover={{ color: 'brand.accentHover', textDecoration: 'none' }}
           >
             LEIA NOSSA METODOLOGIA →
           </Link>

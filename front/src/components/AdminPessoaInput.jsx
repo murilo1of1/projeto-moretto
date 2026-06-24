@@ -17,17 +17,19 @@ export default function AdminPessoaInput({ onSubmit }) {
   const inputStyle = {
     borderRadius: 'none',
     border: 'none',
-    borderBottom: '1px solid #c8c8b8',
+    borderBottomWidth: '1px',
+    borderBottomStyle: 'solid',
+    borderBottomColor: 'brand.sand',
     bg: 'transparent',
     h: '44px',
     px: 0,
     fontSize: 'sm',
-    color: '#1a1a1a',
+    color: 'brand.ink',
     fontFamily: 'var(--font-inter)',
     letterSpacing: '0.03em',
     _placeholder: { color: '#aaa', fontSize: 'sm', letterSpacing: '0.05em' },
-    _focus: { outline: 'none', borderBottom: '1px solid #235a40', boxShadow: 'none' },
-    _focusVisible: { outline: 'none', borderBottom: '1px solid #235a40', boxShadow: 'none' },
+    _focus: { outline: 'none', borderBottomColor: 'brand.accentHover', boxShadow: 'none' },
+    _focusVisible: { outline: 'none', borderBottomColor: 'brand.accentHover', boxShadow: 'none' },
   };
 
   const handleSubmit = async () => {
@@ -87,7 +89,7 @@ export default function AdminPessoaInput({ onSubmit }) {
   };
 
   return (
-    <Stack spacing={7} w="100%">
+    <Stack gap={7} w="100%">
       <FormField label="Nome completo">
         <Input
           placeholder="ALEXANDER VANDERBILT"
@@ -140,7 +142,7 @@ export default function AdminPessoaInput({ onSubmit }) {
 
       <Button
         mt={3}
-        bg="#0f2b1d"
+        bg="brand.accent"
         color="white"
         borderRadius="none"
         h="56px"
@@ -151,7 +153,7 @@ export default function AdminPessoaInput({ onSubmit }) {
         transition="all 0.3s"
         loading={isSubmitting}
         onClick={handleSubmit}
-        _hover={{ bg: '#235a40', transform: 'translateY(-1px)', boxShadow: '0 6px 16px rgba(0,0,0,0.18)' }}
+        _hover={{ bg: 'brand.accentHover', transform: 'translateY(-1px)', boxShadow: '0 6px 16px rgba(0,0,0,0.18)' }}
       >
         CADASTRAR PESSOA
       </Button>

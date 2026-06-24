@@ -216,7 +216,7 @@ export default function EditAutomovelAdminPage() {
     <>
       <AdminHeader />
 
-      <Box minH="100vh" bg="#f9f7f2" pt="85px">
+      <Box minH="100vh" bg="brand.cream" pt="85px">
         <Box px={{ base: 6, lg: 14 }} py={{ base: 10, lg: 14 }}>
           <Flex
             justify="space-between"
@@ -226,7 +226,7 @@ export default function EditAutomovelAdminPage() {
             mb={8}
           >
             <Box>
-              <Text fontSize="xs" fontWeight="bold" letterSpacing="widest" color="#7a6242" mb={4}>
+              <Text fontSize="xs" fontWeight="bold" letterSpacing="widest" color="brand.muted" mb={4}>
                 EDITAR AUTOMÓVEL
               </Text>
 
@@ -234,7 +234,7 @@ export default function EditAutomovelAdminPage() {
                 fontFamily="var(--font-cormorant-garamond)"
                 fontSize={{ base: '5xl', lg: '7xl' }}
                 lineHeight="0.95"
-                color="#1a1a1a"
+                color="brand.ink"
                 mb={4}
               >
                 Atualizar veículo
@@ -244,7 +244,7 @@ export default function EditAutomovelAdminPage() {
                 fontFamily="var(--font-cormorant-garamond)"
                 fontStyle="italic"
                 fontSize={{ base: 'lg', lg: 'xl' }}
-                color="#4c3b29"
+                color="brand.subtle"
               >
                 Faça ajustes no cadastro do automóvel antes de voltar ao showroom.
               </Text>
@@ -253,10 +253,10 @@ export default function EditAutomovelAdminPage() {
 
           {carregando ? (
             <Flex py={20} justify="center">
-              <Spinner color="#0f2b1d" size="xl" />
+              <Spinner color="brand.accent" size="xl" />
             </Flex>
           ) : (
-            <Stack spacing={6} maxW="720px">
+            <Stack gap={6} maxW="720px">
               <FormField label="Placa">
                 <Input
                   placeholder="ABC1234"
@@ -264,7 +264,7 @@ export default function EditAutomovelAdminPage() {
                   onChange={(e) => setPlaca(e.target.value)}
                   borderRadius="none"
                   border="1px solid #c8c0ad"
-                  _focus={{ boxShadow: 'none', borderColor: '#0f2b1d' }}
+                  _focus={{ boxShadow: 'none', borderColor: 'brand.accent' }}
                 />
               </FormField>
 
@@ -275,7 +275,7 @@ export default function EditAutomovelAdminPage() {
                   onChange={(e) => setMarca(e.target.value)}
                   borderRadius="none"
                   border="1px solid #c8c0ad"
-                  _focus={{ boxShadow: 'none', borderColor: '#0f2b1d' }}
+                  _focus={{ boxShadow: 'none', borderColor: 'brand.accent' }}
                 />
               </FormField>
 
@@ -286,7 +286,7 @@ export default function EditAutomovelAdminPage() {
                   onChange={(e) => setModelo(e.target.value)}
                   borderRadius="none"
                   border="1px solid #c8c0ad"
-                  _focus={{ boxShadow: 'none', borderColor: '#0f2b1d' }}
+                  _focus={{ boxShadow: 'none', borderColor: 'brand.accent' }}
                 />
               </FormField>
 
@@ -298,7 +298,7 @@ export default function EditAutomovelAdminPage() {
                   onChange={(e) => setAno(e.target.value)}
                   borderRadius="none"
                   border="1px solid #c8c0ad"
-                  _focus={{ boxShadow: 'none', borderColor: '#0f2b1d' }}
+                  _focus={{ boxShadow: 'none', borderColor: 'brand.accent' }}
                 />
               </FormField>
 
@@ -309,7 +309,7 @@ export default function EditAutomovelAdminPage() {
                   onChange={(e) => setCor(e.target.value)}
                   borderRadius="none"
                   border="1px solid #c8c0ad"
-                  _focus={{ boxShadow: 'none', borderColor: '#0f2b1d' }}
+                  _focus={{ boxShadow: 'none', borderColor: 'brand.accent' }}
                 />
               </FormField>
 
@@ -326,13 +326,13 @@ export default function EditAutomovelAdminPage() {
                     border="2px dashed #c8c0ad"
                     borderRadius="4px"
                     p={6}
-                    _hover={{ borderColor: '#0f2b1d', bg: '#f5f2eb' }}
+                    _hover={{ borderColor: 'brand.accent', bg: 'brand.creamHover' }}
                   >
                     <Flex direction="column" align="center" justify="center" gap={2}>
-                      <Text fontSize="sm" color="#4c3b29" fontWeight="500">
+                      <Text fontSize="sm" color="brand.subtle" fontWeight="500">
                         Arraste imagens aqui ou clique para selecionar
                       </Text>
-                      <Text fontSize="xs" color="#7a6242">
+                      <Text fontSize="xs" color="brand.muted">
                         .png, .jpg até 10 fotos
                       </Text>
                     </Flex>
@@ -342,16 +342,16 @@ export default function EditAutomovelAdminPage() {
 
                 {imagens.length > 0 && (
                   <Box mt={4}>
-                    <Text fontSize="sm" fontWeight="bold" color="#2d241b" mb={3}>
+                    <Text fontSize="sm" fontWeight="bold" color="brand.subtleStrong" mb={3}>
                       Fotos para adicionar ({imagens.length}/10):
                     </Text>
-                    <Stack spacing={2}>
+                    <Stack gap={2}>
                       {imagens.map((imagem, index) => (
                         <Flex
                           key={index}
                           justify="space-between"
                           align="center"
-                          bg="#fdfaf3"
+                          bg="brand.card"
                           p={3}
                           border="1px solid #d6c7aa"
                         >
@@ -368,10 +368,10 @@ export default function EditAutomovelAdminPage() {
                               />
                             )}
                             <Box>
-                              <Text fontSize="sm" fontWeight="500" color="#1a1a1a" noOfLines={1}>
+                              <Text fontSize="sm" fontWeight="500" color="brand.ink" noOfLines={1}>
                                 {imagem.name || `Foto ${index + 1}`}
                               </Text>
-                              <Text fontSize="xs" color="#7a6242">
+                              <Text fontSize="xs" color="brand.muted">
                                 {imagem.size && `${(imagem.size / 1024).toFixed(2)} KB`}
                               </Text>
                             </Box>
@@ -379,9 +379,9 @@ export default function EditAutomovelAdminPage() {
                           <Button
                             size="sm"
                             variant="ghost"
-                            color="#7a1f1f"
+                            color="brand.danger"
                             onClick={() => removerImagem(index)}
-                            _hover={{ bg: '#fce9e9' }}
+                            _hover={{ bg: 'brand.dangerHover' }}
                           >
                             Remover
                           </Button>
@@ -397,14 +397,14 @@ export default function EditAutomovelAdminPage() {
                   onClick={handleSalvar}
                   loading={salvando}
                   flex={1}
-                  bg="#112a21"
+                  bg="brand.green"
                   color="white"
                   borderRadius="none"
                   h="56px"
                   fontSize="xs"
                   fontWeight="bold"
                   letterSpacing="widest"
-                  _hover={{ bg: '#1a3e31' }}
+                  _hover={{ bg: 'brand.greenHover' }}
                 >
                   SALVAR ALTERAÇÕES
                 </Button>
@@ -414,14 +414,14 @@ export default function EditAutomovelAdminPage() {
                   href="/admin/automoveis"
                   flex={1}
                   variant="outline"
-                  borderColor="#112a21"
-                  color="#112a21"
+                  borderColor="brand.green"
+                  color="brand.green"
                   borderRadius="none"
                   h="56px"
                   fontSize="xs"
                   fontWeight="bold"
                   letterSpacing="widest"
-                  _hover={{ bg: '#112a21', color: 'white' }}
+                  _hover={{ bg: 'brand.green', color: 'white' }}
                 >
                   VOLTAR
                 </Button>

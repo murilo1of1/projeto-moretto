@@ -51,8 +51,8 @@ export default function MinhaAreaPage() {
     return (
       <>
         <UserHeader />
-        <Flex minH="100vh" bg="#f9f7f2" align="center" justify="center" pt="85px">
-          <Spinner color="#0f2b1d" size="xl" />
+        <Flex minH="100vh" bg="brand.cream" align="center" justify="center" pt="85px">
+          <Spinner color="brand.accent" size="xl" />
         </Flex>
       </>
     );
@@ -62,7 +62,7 @@ export default function MinhaAreaPage() {
     <>
       <UserHeader />
 
-      <Box minH="100vh" bg="#f9f7f2" pt="85px">
+      <Box minH="100vh" bg="brand.cream" pt="85px">
         <Box px={{ base: 6, lg: 14 }} py={{ base: 10, lg: 14 }}>
           <Flex
             justify="space-between"
@@ -72,7 +72,7 @@ export default function MinhaAreaPage() {
             mb={10}
           >
             <Box>
-              <Text fontSize="xs" fontWeight="bold" letterSpacing="widest" color="#7a6242" mb={4}>
+              <Text fontSize="xs" fontWeight="bold" letterSpacing="widest" color="brand.muted" mb={4}>
                 ÁREA DO CLIENTE
               </Text>
 
@@ -80,7 +80,7 @@ export default function MinhaAreaPage() {
                 fontFamily="var(--font-cormorant-garamond)"
                 fontSize={{ base: '5xl', lg: '7xl' }}
                 lineHeight="0.95"
-                color="#1a1a1a"
+                color="brand.ink"
                 mb={4}
               >
                 Olá, {usuario?.nome}
@@ -90,14 +90,14 @@ export default function MinhaAreaPage() {
                 fontFamily="var(--font-cormorant-garamond)"
                 fontStyle="italic"
                 fontSize={{ base: 'lg', lg: 'xl' }}
-                color="#4c3b29"
+                color="brand.subtle"
               >
                 Acompanhe seus agendamentos e continue sua jornada pela curadoria Flow Motors.
               </Text>
             </Box>
 
             <Badge
-              bg="#112a21"
+              bg="brand.green"
               color="white"
               borderRadius="none"
               px={4}
@@ -125,27 +125,27 @@ export default function MinhaAreaPage() {
             <Heading
               fontFamily="var(--font-cormorant-garamond)"
               fontSize={{ base: '3xl', lg: '4xl' }}
-              color="#1a1a1a"
+              color="brand.ink"
               mb={6}
             >
               Meus test drives
             </Heading>
 
             {meusAgendamentos.length === 0 ? (
-              <Box border="1px solid #d6c7aa" bg="#fdfaf3" p={8}>
-                <Text color="#4c3b29">
+              <Box border="1px solid #d6c7aa" bg="brand.card" p={8}>
+                <Text color="brand.subtle">
                   Você ainda não possui test drives agendados.
                 </Text>
               </Box>
             ) : (
               <SimpleGrid columns={{ base: 1, md: 2 }} gap={6}>
                 {meusAgendamentos.map((testDrive) => (
-                  <Box key={testDrive.id} border="1px solid #d6c7aa" bg="#fdfaf3" p={6}>
+                  <Box key={testDrive.id} border="1px solid #d6c7aa" bg="brand.card" p={6}>
                     <Flex justify="space-between" gap={4} mb={4}>
                       <Heading
                         fontFamily="var(--font-cormorant-garamond)"
                         fontSize="2xl"
-                        color="#1a1a1a"
+                        color="brand.ink"
                       >
                         {testDrive.Automovei?.marca} {testDrive.Automovei?.modelo}
                       </Heading>
@@ -155,11 +155,11 @@ export default function MinhaAreaPage() {
                       </Badge>
                     </Flex>
 
-                    <Text color="#7a6242" fontWeight="bold" fontSize="sm" mb={2}>
+                    <Text color="brand.muted" fontWeight="bold" fontSize="sm" mb={2}>
                       {testDrive.Automovei?.ano} - Placa {testDrive.Automovei?.placa}
                     </Text>
 
-                    <Text color="#2d241b">
+                    <Text color="brand.subtleStrong">
                       {new Date(testDrive.dataAgendamento).toLocaleString('pt-BR')}
                     </Text>
                   </Box>
@@ -175,12 +175,12 @@ export default function MinhaAreaPage() {
 
 function InfoCard({ titulo, valor }) {
   return (
-    <Box border="1px solid #d6c7aa" bg="#fdfaf3" p={6}>
-      <Text fontSize="10px" fontWeight="bold" letterSpacing="widest" color="#7a6242" mb={3}>
+    <Box border="1px solid #d6c7aa" bg="brand.card" p={6}>
+      <Text fontSize="10px" fontWeight="bold" letterSpacing="widest" color="brand.muted" mb={3}>
         {titulo}
       </Text>
 
-      <Heading fontFamily="var(--font-cormorant-garamond)" fontSize="3xl" color="#1a1a1a">
+      <Heading fontFamily="var(--font-cormorant-garamond)" fontSize="3xl" color="brand.ink">
         {valor || '-'}
       </Heading>
     </Box>
@@ -189,12 +189,12 @@ function InfoCard({ titulo, valor }) {
 
 function Acao({ href, titulo, texto }) {
   return (
-    <Box border="1px solid #d6c7aa" bg="#fdfaf3" p={6}>
-      <Heading fontFamily="var(--font-cormorant-garamond)" fontSize="2xl" mb={3} color="#1a1a1a">
+    <Box border="1px solid #d6c7aa" bg="brand.card" p={6}>
+      <Heading fontFamily="var(--font-cormorant-garamond)" fontSize="2xl" mb={3} color="brand.ink">
         {titulo}
       </Heading>
 
-      <Text color="#4c3b29" mb={5}>
+      <Text color="brand.subtle" mb={5}>
         {texto}
       </Text>
 
@@ -202,14 +202,14 @@ function Acao({ href, titulo, texto }) {
         as={NextLink}
         href={href}
         variant="outline"
-        borderColor="#112a21"
-        color="#112a21"
+        borderColor="brand.green"
+        color="brand.green"
         borderRadius="none"
         h="42px"
         fontSize="xs"
         fontWeight="bold"
         letterSpacing="widest"
-        _hover={{ bg: '#112a21', color: 'white' }}
+        _hover={{ bg: 'brand.green', color: 'white' }}
       >
         ACESSAR
       </Button>

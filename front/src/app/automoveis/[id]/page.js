@@ -69,8 +69,8 @@ export default function AutomovelDetalhesPage() {
     return (
       <>
         <UserHeader />
-        <Flex minH="100vh" bg="#f9f7f2" align="center" justify="center" pt="85px">
-          <Spinner color="#0f2b1d" size="xl" />
+        <Flex minH="100vh" bg="brand.cream" align="center" justify="center" pt="85px">
+          <Spinner color="brand.accent" size="xl" />
         </Flex>
       </>
     );
@@ -80,12 +80,12 @@ export default function AutomovelDetalhesPage() {
     return (
       <>
         <UserHeader />
-        <Flex minH="100vh" bg="#f9f7f2" align="center" justify="center" pt="85px" px={6}>
+        <Flex minH="100vh" bg="brand.cream" align="center" justify="center" pt="85px" px={6}>
           <Box textAlign="center">
             <Heading
               fontFamily="var(--font-cormorant-garamond)"
               fontSize="4xl"
-              color="#1a1a1a"
+              color="brand.ink"
               mb={4}
             >
               Automóvel não encontrado
@@ -98,11 +98,11 @@ export default function AutomovelDetalhesPage() {
             <Button
               as={NextLink}
               href="/home"
-              bg="#112a21"
+              bg="brand.green"
               color="white"
               borderRadius="none"
               px={8}
-              _hover={{ bg: '#1a3e31' }}
+              _hover={{ bg: 'brand.greenHover' }}
             >
               VOLTAR AO CATÁLOGO
             </Button>
@@ -116,9 +116,9 @@ export default function AutomovelDetalhesPage() {
     <>
       <UserHeader />
 
-      <Box minH="100vh" bg="#f9f7f2" pt="85px">
+      <Box minH="100vh" bg="brand.cream" pt="85px">
         <Grid templateColumns={{ base: '1fr', lg: '1.12fr 0.88fr' }} minH={{ lg: 'calc(100vh - 85px)' }}>
-          <Box bg="#0a1f15" p={{ base: 5, lg: 10 }}>
+          <Box bg="brand.deep" p={{ base: 5, lg: 10 }}>
             <Image
               src={imagens[fotoAtiva]}
               alt={`${automovel.marca} ${automovel.modelo}`}
@@ -153,7 +153,7 @@ export default function AutomovelDetalhesPage() {
           <Flex direction="column" justify="center" px={{ base: 6, lg: 14 }} py={{ base: 10, lg: 14 }}>
             <Badge
               alignSelf="flex-start"
-              bg="#112a21"
+              bg="brand.green"
               color="white"
               borderRadius="none"
               px={4}
@@ -171,7 +171,7 @@ export default function AutomovelDetalhesPage() {
               fontSize={{ base: '5xl', lg: '7xl' }}
               fontWeight="700"
               lineHeight="0.95"
-              color="#1a1a1a"
+              color="brand.ink"
               mb={5}
             >
               {automovel.marca} {automovel.modelo}
@@ -181,7 +181,7 @@ export default function AutomovelDetalhesPage() {
               fontFamily="var(--font-cormorant-garamond)"
               fontStyle="italic"
               fontSize={{ base: 'xl', lg: '2xl' }}
-              color="#4c3b29"
+              color="brand.subtle"
               lineHeight="1.55"
               mb={8}
             >
@@ -202,16 +202,16 @@ export default function AutomovelDetalhesPage() {
                 fontSize="3xl"
                 fontWeight="600"
                 mb={4}
-                color="#1a1a1a"
+                color="brand.ink"
               >
                 Diferenciais
               </Heading>
 
               <SimpleGrid columns={{ base: 1, md: 2 }} gap={3}>
-                <Text color="#2d241b">Curadoria especializada</Text>
-                <Text color="#2d241b">Histórico preservado</Text>
-                <Text color="#2d241b">Inspeção visual criteriosa</Text>
-                <Text color="#2d241b">Disponível para visitação</Text>
+                <Text color="brand.subtleStrong">Curadoria especializada</Text>
+                <Text color="brand.subtleStrong">Histórico preservado</Text>
+                <Text color="brand.subtleStrong">Inspeção visual criteriosa</Text>
+                <Text color="brand.subtleStrong">Disponível para visitação</Text>
               </SimpleGrid>
             </Box>
 
@@ -219,7 +219,7 @@ export default function AutomovelDetalhesPage() {
               <Button
                 as={NextLink}
                 href={`/test-drive?automovelId=${automovel.id}`}
-                bg="#112a21"
+                bg="brand.green"
                 color="white"
                 borderRadius="none"
                 h="52px"
@@ -227,7 +227,7 @@ export default function AutomovelDetalhesPage() {
                 fontSize="xs"
                 fontWeight="bold"
                 letterSpacing="widest"
-                _hover={{ bg: '#1a3e31' }}
+                _hover={{ bg: 'brand.greenHover' }}
               >
                 AGENDAR TEST DRIVE
               </Button>
@@ -236,15 +236,15 @@ export default function AutomovelDetalhesPage() {
                 as={NextLink}
                 href="/home"
                 variant="outline"
-                borderColor="#112a21"
-                color="#112a21"
+                borderColor="brand.green"
+                color="brand.green"
                 borderRadius="none"
                 h="52px"
                 px={8}
                 fontSize="xs"
                 fontWeight="bold"
                 letterSpacing="widest"
-                _hover={{ bg: '#112a21', color: 'white' }}
+                _hover={{ bg: 'brand.green', color: 'white' }}
               >
                 VOLTAR AO CATÁLOGO
               </Button>
@@ -259,11 +259,11 @@ export default function AutomovelDetalhesPage() {
 function Info({ label, value }) {
   return (
     <Box>
-      <Text fontSize="10px" fontWeight="bold" letterSpacing="widest" color="#7a6242" mb={1}>
+      <Text fontSize="10px" fontWeight="bold" letterSpacing="widest" color="brand.muted" mb={1}>
         {label}
       </Text>
 
-      <Text fontFamily="var(--font-cormorant-garamond)" fontSize="2xl" color="#1a1a1a">
+      <Text fontFamily="var(--font-cormorant-garamond)" fontSize="2xl" color="brand.ink">
         {value || '-'}
       </Text>
     </Box>

@@ -9,7 +9,7 @@ export default function ContatoPage() {
       <Box
         w={{ base: '100%', lg: '63%' }}
         minH={{ base: '40vh', lg: '100vh' }}
-        bg="#0a1f15"
+        bg="brand.deep"
         position="relative"
         display="flex"
         flexDirection="column"
@@ -56,15 +56,15 @@ export default function ContatoPage() {
             as={NextLink}
             href="/home"
             mt={10}
-            bg="#f9f7f2"
-            color="#0f2b1d"
+            bg="brand.cream"
+            color="brand.accent"
             borderRadius="none"
             h="52px"
             px={8}
             fontSize="xs"
             fontWeight="bold"
             letterSpacing="widest"
-            _hover={{ bg: '#e7dfcf' }}
+            _hover={{ bg: 'brand.pill' }}
           >
             VER CATÁLOGO
           </Button>
@@ -74,7 +74,7 @@ export default function ContatoPage() {
       <Flex
         w={{ base: '100%', lg: '37%' }}
         minH={{ base: 'auto', lg: '100vh' }}
-        bg="#f9f7f2"
+        bg="brand.cream"
         flexDirection="column"
         justify="space-between"
         px={{ base: 8, lg: 10 }}
@@ -85,7 +85,7 @@ export default function ContatoPage() {
           fontSize="xl"
           fontWeight="600"
           letterSpacing="widest"
-          color="#1a1a1a"
+          color="brand.ink"
           mb={12}
         >
           FLOW MOTORS
@@ -97,7 +97,7 @@ export default function ContatoPage() {
             fontFamily="var(--font-cormorant-garamond)"
             fontSize={{ base: '4xl', lg: '5xl' }}
             fontWeight="500"
-            color="#1a1a1a"
+            color="brand.ink"
             mb={3}
           >
             Contato
@@ -121,7 +121,7 @@ export default function ContatoPage() {
               <Link
                 href="https://wa.me/5549999097546"
                 target="_blank"
-                color="#0f2b1d"
+                color="brand.accent"
                 fontSize="lg"
                 fontWeight="600"
               >
@@ -136,7 +136,7 @@ export default function ContatoPage() {
               <Link
                 href="https://instagram.com/flow_motors"
                 target="_blank"
-                color="#0f2b1d"
+                color="brand.accent"
                 fontSize="lg"
                 fontWeight="600"
               >
@@ -151,7 +151,7 @@ export default function ContatoPage() {
               <Link
                 href="https://facebook.com/FlowMotors"
                 target="_blank"
-                color="#0f2b1d"
+                color="brand.accent"
                 fontSize="lg"
                 fontWeight="600"
               >
@@ -176,10 +176,10 @@ function ContatoLink({ label, href, texto }) {
       <Link
         href={href}
         target="_blank"
-        color="#0f2b1d"
+        color="brand.accent"
         fontSize="lg"
         fontWeight="600"
-        _hover={{ color: '#235a40' }}
+        _hover={{ color: 'brand.accentHover' }}
       >
         {texto}
       </Link>

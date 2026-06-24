@@ -14,7 +14,7 @@ export function FormPanel({ eyebrow, title, description, children, aside }) {
       >
         <Box maxW="720px">
           {eyebrow && (
-            <Text fontSize="xs" fontWeight="bold" letterSpacing="widest" color="#7a6242" mb={4}>
+            <Text fontSize="xs" fontWeight="bold" letterSpacing="widest" color="brand.muted" mb={4}>
               {eyebrow}
             </Text>
           )}
@@ -23,7 +23,7 @@ export function FormPanel({ eyebrow, title, description, children, aside }) {
             fontFamily="var(--font-cormorant-garamond)"
             fontSize={{ base: '5xl', lg: '6xl' }}
             lineHeight="0.98"
-            color="#1a1a1a"
+            color="brand.ink"
             mb={4}
           >
             {title}
@@ -34,7 +34,7 @@ export function FormPanel({ eyebrow, title, description, children, aside }) {
               fontFamily="var(--font-cormorant-garamond)"
               fontStyle="italic"
               fontSize={{ base: 'lg', lg: 'xl' }}
-              color="#4c3b29"
+              color="brand.subtle"
               lineHeight="1.55"
             >
               {description}
@@ -45,7 +45,7 @@ export function FormPanel({ eyebrow, title, description, children, aside }) {
         {aside}
       </Flex>
 
-      <Box bg="#fdfaf3" border="1px solid #d6c7aa" p={{ base: 6, md: 8 }}>
+      <Box bg="brand.card" border="1px solid #d6c7aa" p={{ base: 6, md: 8 }}>
         {children}
       </Box>
     </Box>

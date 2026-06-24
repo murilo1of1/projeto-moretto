@@ -68,7 +68,7 @@ export default function NovaPessoaAdminPage() {
 
       <Box
         minH="100vh"
-        bg="#f9f7f2"
+        bg="brand.cream"
         px={{ base: 6, lg: 14 }}
         pt={{ base: '125px', lg: '141px' }}
         pb={{ base: 10, lg: 14 }}
@@ -82,15 +82,15 @@ export default function NovaPessoaAdminPage() {
               as={NextLink}
               href="/admin/pessoas"
               variant="outline"
-              borderColor="#112a21"
-              color="#112a21"
+              borderColor="brand.green"
+              color="brand.green"
               borderRadius="none"
               h="46px"
               px={7}
               fontSize="xs"
               fontWeight="bold"
               letterSpacing="widest"
-              _hover={{ bg: '#112a21', color: 'white' }}
+              _hover={{ bg: 'brand.green', color: 'white' }}
             >
               VER PESSOAS
             </Button>
@@ -100,15 +100,15 @@ export default function NovaPessoaAdminPage() {
             <AdminPessoaInput onSubmit={handleCreatePessoa} />
 
             <Box borderLeft={{ base: 'none', lg: '1px solid #d6c7aa' }} pl={{ base: 0, lg: 10 }}>
-              <Text fontSize="10px" fontWeight="bold" letterSpacing="widest" color="#7a6242" mb={4}>
+              <Text fontSize="10px" fontWeight="bold" letterSpacing="widest" color="brand.muted" mb={4}>
                 REGRAS DE ACESSO
               </Text>
 
-              <Text color="#4c3b29" lineHeight="1.8" mb={5}>
+              <Text color="brand.subtle" lineHeight="1.8" mb={5}>
                 Clientes acessam catalogo, area do usuario e agendamento de test drive.
               </Text>
 
-              <Text color="#4c3b29" lineHeight="1.8">
+              <Text color="brand.subtle" lineHeight="1.8">
                 Administradores acessam o painel de gestao, cadastros e listagens internas.
               </Text>
             </Box>
