@@ -10,11 +10,16 @@ import "./models/index.js";
 
 import Routes from "./routes/index.js";
 import { sequelize } from "./config/database.js";
-import { seedDatabase } from "./seeders/seedDatabase.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const app = express();
+
+if (!process.env.TOKEN_KEY) {
+  console.warn(
+    "AVISO: TOKEN_KEY não está definido no .env — o login e as rotas autenticadas vão falhar.",
+  );
+}
 
 const logStream = fs.createWriteStream(path.join(__dirname, "../access.log"), {
   flags: "a",
@@ -43,7 +48,7 @@ sequelize
   .authenticate()
   .then(async () => {
     console.log("Conectado ao Banco!");
-    await seedDatabase();
+    await sequelize.sync();
   })
   .catch((err) => console.log("Erro no Banco: ", err));
 
