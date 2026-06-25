@@ -3,6 +3,7 @@ import Pessoa from "../models/PessoaModel.js";
 import Automovel from "../models/AutomovelModel.js";
 import TestDrive from "../models/TestDriveModel.js";
 import AutomovelFoto from "../models/AutomovelFotoModel.js";
+import { pathToFileURL } from "url";
 
 export const seedDatabase = async () => {
   try {
@@ -96,6 +97,11 @@ export const seedDatabase = async () => {
   }
 };
 
-if (import.meta.url === `file://${process.argv[1]}`) {
-  seedDatabase().then(() => process.exit(0)).catch(() => process.exit(1));
+if (
+  process.argv[1] &&
+  import.meta.url === pathToFileURL(process.argv[1]).href
+) {
+  seedDatabase()
+    .then(() => process.exit(0))
+    .catch(() => process.exit(1));
 }
