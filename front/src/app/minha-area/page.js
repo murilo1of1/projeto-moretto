@@ -147,7 +147,7 @@ export default function MinhaAreaPage() {
                         fontSize="2xl"
                         color="brand.ink"
                       >
-                        {testDrive.Automovei?.marca} {testDrive.Automovei?.modelo}
+                        {testDrive.automovel?.marca} {testDrive.automovel?.modelo}
                       </Heading>
 
                       <Badge borderRadius="none" colorPalette="green">
@@ -156,7 +156,7 @@ export default function MinhaAreaPage() {
                     </Flex>
 
                     <Text color="brand.muted" fontWeight="bold" fontSize="sm" mb={2}>
-                      {testDrive.Automovei?.ano} - Placa {testDrive.Automovei?.placa}
+                      {testDrive.automovel?.ano} - Placa {testDrive.automovel?.placa}
                     </Text>
 
                     <Text color="brand.subtleStrong">

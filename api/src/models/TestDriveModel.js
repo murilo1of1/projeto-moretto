@@ -39,8 +39,10 @@ const TestDrive = sequelize.define(
 );
 
 // Aqui mostra que Test Drive pertence a uma Pessoa e a um Automóvel.
-TestDrive.belongsTo(Pessoa, { foreignKey: 'pessoaId' });
-TestDrive.belongsTo(Automovel, { foreignKey: 'automovelId' });
+// Aliases explícitos evitam depender da pluralização automática do Sequelize
+// (o model 'Automoveis' era singularizado para a chave 'Automovei').
+TestDrive.belongsTo(Pessoa, { foreignKey: 'pessoaId', as: 'pessoa' });
+TestDrive.belongsTo(Automovel, { foreignKey: 'automovelId', as: 'automovel' });
 
 // Aqui quer dizer que uma pessoa pode ter vários test drives.
 Pessoa.hasMany(TestDrive, { foreignKey: 'pessoaId' });

@@ -131,10 +131,10 @@ export default function AdminTestDrivesPage() {
                           color="brand.ink"
                           mb={2}
                         >
-                          {testDrive.Automovel?.marca ?? 'Carro'} {testDrive.Automovel?.modelo ?? ''}
+                          {testDrive.automovel?.marca ?? 'Carro'} {testDrive.automovel?.modelo ?? ''}
                         </Heading>
                         <Text color="brand.muted" fontSize="sm">
-                          {testDrive.Automovel?.ano ?? '----'} · Placa {testDrive.Automovel?.placa ?? '----'}
+                          {testDrive.automovel?.ano ?? '----'} · Placa {testDrive.automovel?.placa ?? '----'}
                         </Text>
                       </Box>
                       <Badge
@@ -153,7 +153,7 @@ export default function AdminTestDrivesPage() {
                     </Flex>
 
                     <Text color="brand.subtle" mb={4}>
-                      Cliente: {testDrive.Pessoa?.nome ?? 'Desconhecido'}
+                      Cliente: {testDrive.pessoa?.nome ?? 'Desconhecido'}
                     </Text>
 
                     <Text color="brand.subtleStrong" fontSize="sm" mb={6}>

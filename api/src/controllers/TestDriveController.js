@@ -3,8 +3,8 @@ import Pessoa from "../models/PessoaModel.js";
 import Automovel from "../models/AutomovelModel.js";
 
 const includes = [
-  { model: Pessoa, attributes: ["id", "nome", "email", "telefone"] },
-  { model: Automovel, attributes: ["id", "marca", "modelo", "ano", "placa"] },
+  { model: Pessoa, as: "pessoa", attributes: ["id", "nome", "email", "telefone"] },
+  { model: Automovel, as: "automovel", attributes: ["id", "marca", "modelo", "ano", "placa"] },
 ];
 
 const get = async (req, res) => {
