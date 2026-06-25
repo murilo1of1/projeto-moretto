@@ -64,6 +64,19 @@ const config = defineConfig({
       color: 'brand.ink',
       fontFamily: 'body',
     },
+    'input, textarea, select': {
+      color: 'brand.ink',
+      caretColor: 'brand.green',
+    },
+    'input::placeholder, textarea::placeholder, select::placeholder': {
+      color: 'brand.muted',
+      opacity: '1',
+    },
+    'input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:focus, textarea:-webkit-autofill, textarea:-webkit-autofill:hover, textarea:-webkit-autofill:focus, select:-webkit-autofill, select:-webkit-autofill:hover, select:-webkit-autofill:focus': {
+      WebkitTextFillColor: 'brand.ink',
+      caretColor: 'brand.green',
+      transition: 'background-color 5000s ease-in-out 0s',
+    },
     '::selection': {
       bg: 'brand.green',
       color: 'white',
