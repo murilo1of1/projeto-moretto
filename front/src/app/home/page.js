@@ -59,20 +59,13 @@ export default function HomePage() {
           alignItems="center"
           px={{ base: 6, lg: 14 }}
           bg="brand.deep"
+          bgImage="url('/bg-garage.png')"
+          bgSize="cover"
+          bgPosition="left center"
+          bgRepeat="no-repeat"
           position="relative"
           overflow="hidden"
         >
-          <Image
-            src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7"
-            alt="Automóvel clássico em destaque"
-            position="absolute"
-            inset={0}
-            w="100%"
-            h="100%"
-            objectFit="cover"
-            opacity={0.32}
-          />
-
           <Box position="absolute" inset={0} bg="rgba(10, 31, 21, 0.62)" />
 
           <Box position="relative" maxW="760px" color="white">

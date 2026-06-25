@@ -7,9 +7,9 @@ export function Banner() {
       w="100%"
       h="80vh"
       bg="brand.ink"
-      
+      bgImage="url('/bg-garage.png')"
       bgSize="cover"
-      bgPosition="center"
+      bgPosition="center center"
       position="relative"
       align="center"
       justify="center"

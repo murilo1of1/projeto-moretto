@@ -196,7 +196,7 @@ export default function TestDrivePage() {
                           <Text fontSize="8px" fontWeight="700" letterSpacing="2px" color="brand.muted">
                             {auto.marca}
                           </Text>
-                          <Text fontFamily="var(--font-cormorant-garamond)" fontSize="lg" fontWeight="600" lineHeight="1.2">
+                          <Text fontFamily="var(--font-cormorant-garamond)" fontSize="lg" fontWeight="600" lineHeight="1.2" color="brand.muted">
                             {auto.modelo}
                           </Text>
                           <Text fontSize="11px" color="brand.divider" mt={1}>
@@ -217,8 +217,10 @@ export default function TestDrivePage() {
                     border="none"
                     borderBottom="1px solid #c8c0ad"
                     bg="transparent"
+                    color="brand.ink"
                     h="44px"
                     px={0}
+                    _placeholder={{ color: 'brand.muted' }}
                     _focus={{ boxShadow: 'none', borderBottomColor: 'brand.accent' }}
                   />
                 </FormField>
@@ -260,6 +262,20 @@ export default function TestDrivePage() {
 
                 {automovelSelecionado ? (
                   <Box>
+                    {automovelSelecionado.fotos && automovelSelecionado.fotos.length > 0 && (
+                      <Box
+                        as="img"
+                        src={`${process.env.NEXT_PUBLIC_API_URL}${automovelSelecionado.fotos[0].url}`}
+                        alt={`${automovelSelecionado.marca} ${automovelSelecionado.modelo}`}
+                        w="100%"
+                        h="280px"
+                        objectFit="cover"
+                        borderRadius="4px"
+                        mb={5}
+                        border="1px solid #d6c7aa"
+                      />
+                    )}
+
                     <Badge bg="brand.green" color="white" borderRadius="none" px={3} py={1} mb={5}>
                       {automovelSelecionado.placa}
                     </Badge>

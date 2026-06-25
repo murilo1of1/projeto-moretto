@@ -4,7 +4,7 @@ import { Box, Text } from '@chakra-ui/react';
 
 export function FormField({ label, helper, children }) {
   return (
-    <Box>
+    <Box mb={5}>
       <Text
         fontSize="10px"
         fontWeight="bold"

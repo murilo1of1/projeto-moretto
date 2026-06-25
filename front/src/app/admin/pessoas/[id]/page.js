@@ -194,8 +194,10 @@ export default function EditPessoaAdminPage({ params }) {
                     border="none"
                     borderBottom="1px solid #c8c0ad"
                     bg="transparent"
+                    color="brand.ink"
                     h="44px"
                     px={0}
+                    _placeholder={{ color: 'brand.muted' }}
                     _focus={{ boxShadow: 'none', borderBottomColor: 'brand.accent' }}
                   />
                 </FormField>
@@ -210,8 +212,10 @@ export default function EditPessoaAdminPage({ params }) {
                     border="none"
                     borderBottom="1px solid #c8c0ad"
                     bg="transparent"
+                    color="brand.ink"
                     h="44px"
                     px={0}
+                    _placeholder={{ color: 'brand.muted' }}
                     _focus={{ boxShadow: 'none', borderBottomColor: 'brand.accent' }}
                   />
                 </FormField>
@@ -225,8 +229,10 @@ export default function EditPessoaAdminPage({ params }) {
                     border="none"
                     borderBottom="1px solid #c8c0ad"
                     bg="transparent"
+                    color="brand.ink"
                     h="44px"
                     px={0}
+                    _placeholder={{ color: 'brand.muted' }}
                     _focus={{ boxShadow: 'none', borderBottomColor: 'brand.accent' }}
                   />
                 </FormField>
@@ -240,6 +246,7 @@ export default function EditPessoaAdminPage({ params }) {
                       border="none"
                       borderBottom="1px solid #c8c0ad"
                       bg="transparent"
+                      color="brand.ink"
                       h="44px"
                       px={0}
                       _focus={{ boxShadow: 'none', borderBottomColor: 'brand.accent' }}
@@ -260,8 +267,10 @@ export default function EditPessoaAdminPage({ params }) {
                     border="none"
                     borderBottom="1px solid #c8c0ad"
                     bg="transparent"
+                    color="brand.ink"
                     h="44px"
                     px={0}
+                    _placeholder={{ color: 'brand.muted' }}
                     _focus={{ boxShadow: 'none', borderBottomColor: 'brand.accent' }}
                   />
                 </FormField>

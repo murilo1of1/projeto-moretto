@@ -30,8 +30,11 @@ export default function EditAutomovelAdminPage() {
   const [ano, setAno] = useState('');
   const [cor, setCor] = useState('');
   const [imagens, setImagens] = useState([]);
+  const [fotosExistentes, setFotosExistentes] = useState([]);
   const [carregando, setCarregando] = useState(true);
   const [salvando, setSalvando] = useState(false);
+
+  const normalizeFileKey = (file) => `${file.name}:${file.size}:${file.lastModified}`;
 
   const allowedImageTypes = ['image/jpeg', 'image/png', 'image/webp'];
   const maxImageSize = 5 * 1024 * 1024; // 5MB
@@ -60,6 +63,7 @@ export default function EditAutomovelAdminPage() {
           setModelo(automovel.modelo || '');
           setAno(String(automovel.ano || ''));
           setCor(automovel.cor || '');
+          setFotosExistentes(automovel.fotos || []);
         }
       } catch (error) {
         console.error('Erro ao carregar automóvel:', error);
@@ -86,10 +90,13 @@ export default function EditAutomovelAdminPage() {
     }
 
     const selectedFiles = Array.from(files);
+    const uniqueSelectedFiles = Array.from(
+      new Map(selectedFiles.map((file) => [normalizeFileKey(file), file])).values(),
+    );
     const validFiles = [];
     const invalidMessages = [];
 
-    selectedFiles.forEach((file) => {
+    uniqueSelectedFiles.forEach((file) => {
       if (!allowedImageTypes.includes(file.type)) {
         invalidMessages.push(`${file.name} não é um formato aceito.`);
         return;
@@ -113,12 +120,37 @@ export default function EditAutomovelAdminPage() {
     }
 
     if (validFiles.length > 0) {
-      setImagens((prev) => [...prev, ...validFiles].slice(0, 10));
+      setImagens((prev) => {
+        const existingKeys = new Set(prev.map(normalizeFileKey));
+        const newFiles = validFiles.filter((file) => !existingKeys.has(normalizeFileKey(file)));
+        return [...prev, ...newFiles].slice(0, 10);
+      });
     }
   };
 
   const removerImagem = (index) => {
     setImagens((prev) => prev.filter((_, i) => i !== index));
+  };
+
+  const removerFotoExistente = async (fotoId) => {
+    try {
+      await api.delete(`/automoveis/${id}/fotos/${fotoId}`);
+      setFotosExistentes((prev) => prev.filter((foto) => foto.id !== fotoId));
+      toaster.create({
+        title: 'Foto removida',
+        description: 'A foto foi excluída com sucesso.',
+        type: 'success',
+        meta: { closable: true },
+      });
+    } catch (error) {
+      console.error('Erro ao remover foto:', error.response?.data || error.message);
+      toaster.create({
+        title: 'Erro ao remover foto',
+        description: error.response?.data?.message || error.message || 'Tente novamente.',
+        type: 'error',
+        meta: { closable: true },
+      });
+    }
   };
 
   const handleSalvar = async () => {
@@ -337,7 +369,6 @@ export default function EditAutomovelAdminPage() {
                       </Text>
                     </Flex>
                   </FileUpload.Dropzone>
-                  <FileUpload.List />
                 </FileUpload.Root>
 
                 {imagens.length > 0 && (
@@ -381,6 +412,51 @@ export default function EditAutomovelAdminPage() {
                             variant="ghost"
                             color="brand.danger"
                             onClick={() => removerImagem(index)}
+                            _hover={{ bg: 'brand.dangerHover' }}
+                          >
+                            Remover
+                          </Button>
+                        </Flex>
+                      ))}
+                    </Stack>
+                  </Box>
+                )}
+              {fotosExistentes.length > 0 && (
+                  <Box mt={6}>
+                    <Text fontSize="sm" fontWeight="bold" color="brand.subtleStrong" mb={3}>
+                      Fotos existentes ({fotosExistentes.length}):
+                    </Text>
+                    <Stack gap={2}>
+                      {fotosExistentes.map((foto) => (
+                        <Flex
+                          key={foto.id}
+                          justify="space-between"
+                          align="center"
+                          bg="brand.card"
+                          p={3}
+                          border="1px solid #d6c7aa"
+                        >
+                          <Flex align="center" gap={3}>
+                            <Box
+                              as="img"
+                              src={`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080'}${foto.url}`}
+                              alt={`Foto ${foto.id}`}
+                              h="50px"
+                              w="50px"
+                              objectFit="cover"
+                              borderRadius="4px"
+                            />
+                            <Box>
+                              <Text fontSize="sm" fontWeight="500" color="brand.ink" noOfLines={1}>
+                                {foto.url.split('/').pop()}
+                              </Text>
+                            </Box>
+                          </Flex>
+                          <Button
+                            size="sm"
+                            variant="ghost"
+                            color="brand.danger"
+                            onClick={() => removerFotoExistente(foto.id)}
                             _hover={{ bg: 'brand.dangerHover' }}
                           >
                             Remover

@@ -19,10 +19,10 @@ export default function LoginInput({ onSubmit }) {
     h: '44px',
     px: 0,
     fontSize: 'sm',
-    color: 'brand.ink',
+    color: '#1a1a1a',
     fontFamily: 'var(--font-inter)',
     letterSpacing: '0.03em',
-    _placeholder: { color: '#aaa', fontSize: 'sm', letterSpacing: '0.05em' },
+    _placeholder: { color: '#4a4a4a', fontSize: 'sm', letterSpacing: '0.05em' },
     _focus: { outline: 'none', borderBottomColor: 'brand.accentHover', boxShadow: 'none' },
     _focusVisible: { outline: 'none', borderBottomColor: 'brand.accentHover', boxShadow: 'none' },
   };

@@ -21,6 +21,8 @@ export default function NovoAutomovelPage() {
   const [imagens, setImagens] = useState([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  const normalizeFileKey = (file) => `${file.name}:${file.size}:${file.lastModified}`;
+
   const allowedImageTypes = ['image/jpeg', 'image/png', 'image/webp'];
   const maxImageSize = 5 * 1024 * 1024; // 5MB
 
@@ -44,10 +46,13 @@ export default function NovoAutomovelPage() {
     }
 
     const selectedFiles = Array.from(files);
+    const uniqueSelectedFiles = Array.from(
+      new Map(selectedFiles.map((file) => [normalizeFileKey(file), file])).values(),
+    );
     const validFiles = [];
     const invalidMessages = [];
 
-    selectedFiles.forEach((file) => {
+    uniqueSelectedFiles.forEach((file) => {
       if (!allowedImageTypes.includes(file.type)) {
         invalidMessages.push(`${file.name} não é um formato aceito.`);
         return;
@@ -71,7 +76,11 @@ export default function NovoAutomovelPage() {
     }
 
     if (validFiles.length > 0) {
-      setImagens((prev) => [...prev, ...validFiles].slice(0, 10));
+      setImagens((prev) => {
+        const existingKeys = new Set(prev.map(normalizeFileKey));
+        const newFiles = validFiles.filter((file) => !existingKeys.has(normalizeFileKey(file)));
+        return [...prev, ...newFiles].slice(0, 10);
+      });
     }
   };
 
@@ -178,7 +187,7 @@ export default function NovoAutomovelPage() {
       <AdminHeader />
 
       <Flex minH="100vh" bg="brand.cream" align="center" justify="center" px={8} pt="85px">
-      <Box w="100%" maxW="520px">
+      <Box w="100%" maxW="520px" pt={{ base: 6, md: 8 }}>
         <Heading
           as="h1"
           fontFamily="var(--font-cormorant-garamond)"
@@ -199,7 +208,7 @@ export default function NovoAutomovelPage() {
           Cadastre um veículo clássico no acervo da concessionária.
         </Text>
 
-        <Stack gap={6}>
+        <Stack gap={6} mb={{ base: 10, md: 14 }}>
           <FormField label="Placa">
             <Input
               placeholder="ABC1234"
@@ -207,6 +216,9 @@ export default function NovoAutomovelPage() {
               onChange={(e) => setPlaca(e.target.value)}
               borderRadius="none"
               border="1px solid #c8c0ad"
+              bg="transparent"
+              color="brand.ink"
+              _placeholder={{ color: 'brand.muted' }}
               _focus={{ boxShadow: 'none', borderColor: 'brand.accent' }}
             />
           </FormField>
@@ -218,6 +230,9 @@ export default function NovoAutomovelPage() {
               onChange={(e) => setMarca(e.target.value)}
               borderRadius="none"
               border="1px solid #c8c0ad"
+              bg="transparent"
+              color="brand.ink"
+              _placeholder={{ color: 'brand.muted' }}
               _focus={{ boxShadow: 'none', borderColor: 'brand.accent' }}
             />
           </FormField>
@@ -229,6 +244,9 @@ export default function NovoAutomovelPage() {
               onChange={(e) => setModelo(e.target.value)}
               borderRadius="none"
               border="1px solid #c8c0ad"
+              bg="transparent"
+              color="brand.ink"
+              _placeholder={{ color: 'brand.muted' }}
               _focus={{ boxShadow: 'none', borderColor: 'brand.accent' }}
             />
           </FormField>
@@ -241,6 +259,9 @@ export default function NovoAutomovelPage() {
               onChange={(e) => setAno(e.target.value)}
               borderRadius="none"
               border="1px solid #c8c0ad"
+              bg="transparent"
+              color="brand.ink"
+              _placeholder={{ color: 'brand.muted' }}
               _focus={{ boxShadow: 'none', borderColor: 'brand.accent' }}
             />
           </FormField>
@@ -252,6 +273,9 @@ export default function NovoAutomovelPage() {
               onChange={(e) => setCor(e.target.value)}
               borderRadius="none"
               border="1px solid #c8c0ad"
+              bg="transparent"
+              color="brand.ink"
+              _placeholder={{ color: 'brand.muted' }}
               _focus={{ boxShadow: 'none', borderColor: 'brand.accent' }}
             />
           </FormField>
@@ -280,7 +304,6 @@ export default function NovoAutomovelPage() {
                   </Text>
                 </Flex>
               </FileUpload.Dropzone>
-              <FileUpload.List />
             </FileUpload.Root>
 
             {imagens.length > 0 && (
